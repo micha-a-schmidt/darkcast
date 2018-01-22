@@ -21,3 +21,8 @@ state. All curves are given as a function of $`m`$ in GeV.
 * `vmd/omega-like.txt`: $`\mathcal{R}_\mu^\omega(m)`$
 * `vmd/phi-like.txt`: $`\mathcal{R}_\mu^\phi(m)`$
 * `vmd/rho-like.txt`: $`\mathcal{R}_\mu^\rho(m)`$
+
+## REFS
+
+This directory contains a .tex and .bib file that provide easy access to
+dark-sector references.
