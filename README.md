@@ -1,5 +1,3 @@
-# Darkcast
-
 Darkcast is the companion software package to the paper "Serendipity
 in dark photon searches" and is a framework for recasting constraints
 from dark photon searches into other models. This package is still
@@ -26,3 +24,8 @@ state. All curves are given as a function of $`m`$ in GeV.
 
 This directory contains a .tex and .bib file that provide easy access to
 dark-sector references.
+
+## DARKCAST
+
+This contains an initial version of the recasting code in
+Python. Further documentation is forthcoming.
