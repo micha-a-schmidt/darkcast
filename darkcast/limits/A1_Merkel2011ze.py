@@ -1,0 +1,32 @@
+from darkcast import pars, Model, Production, Dataset, Efficiency
+notes = """
+This limit was extracted from figure 5 (gray curve labeled A1) of
+Blumlein:2013cua.
+
+No detailed information is given on the prompt-like
+requirements. However, since the same coupling is used in production
+and decay, the efficiency ratio is assumed to be unity, e.g. t0 = 0
+and t1 = infinity.
+"""
+bibtex = """
+@article{Merkel:2014avp,
+ author         = "Merkel, H. and others",
+ title          = "{Search at the Mainz Microtron for Light Massive Gauge
+                   Bosons Relevant for the Muon g-2 Anomaly}",
+ journal        = "Phys. Rev. Lett.",
+ volume         = "112",
+ year           = "2014",
+ number         = "22",
+ pages          = "221802",
+ doi            = "10.1103/PhysRevLett.112.221802",
+ eprint         = "1404.5502",
+ archivePrefix  = "arXiv",
+ primaryClass   = "hep-ex",
+ SLACcitation   = "%%CITATION = ARXIV:1404.5502;%%"
+}}
+"""
+model = Model("dark_photon")
+production = Production("e_brem")
+decay = "e_e"
+bounds = Dataset("A1_Merkel2011ze.lmt")
+efficiency = Efficiency(t0 = 0, t1 = float("inf"))
