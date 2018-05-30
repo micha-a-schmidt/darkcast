@@ -62,6 +62,7 @@ the following search paths are used.
 1.  The current directory within the Python interpreter.
 2.  The paths defined by the environment variable `DARKCAST_LIMIT_PATH`.
 3.  The `limits` directory of the Darkcast package.
+
 Any data required by the limits is searched along the following paths:
 1:  The absolute path, if the absolute path is given.
 2:  The current directory within the Python interpreter.
