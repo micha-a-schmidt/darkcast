@@ -40,8 +40,7 @@ limits = darkcast.Limits()
 # Try to load matplotlib.
 try: import matplotlib.pyplot as pyplot
 except: pyplot = None
-colors = ["red", "green", "blue", "orange", "cyan", "magenta", "sienna", 
-          "purple", "maroon", "navy", "gray"]
+colors = ["red", "green", "blue", "orange", "magenta", "cyan", "gray"]
 
 # Loop over all the models.
 for name, model in models.items():
@@ -64,16 +63,15 @@ for name, model in models.items():
         # 'Datasets.write' method.
         recast.write("invisible_%s_%s.txt" % (name, label))
             
-        # Plot. The 'Datasets.plots' method returns formatted lists of
-        # x and y points which can be easily passed to a plotting
-        # package.
+        # Plot. The 'Datasets.plots' method returns formatted
+        # lists of x and y points which can be easily passed to a
+        # plotting package.
         if pyplot:
-            label = label.split("_")[0]
-            if not label in labels: color = next(icolor); labels[label] = color
-            else: color = labels[label]; label = None
             for x, y in recast.plots():
-                ax.fill(x, y, label = label, alpha = 0.3, color = color)
-                label = None
+                label = darkcast.utils.latex(limit.production)
+                if not label in labels: c = next(icolor); labels[label] = c
+                else: c = labels[label]; label = None
+                ax.fill(x, y, label = label, alpha = 0.3, color = c)
 
     # Save the plot.
     if pyplot:

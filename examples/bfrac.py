@@ -32,7 +32,7 @@ models = darkcast.Models()
 # branching fractions. A channel can be either a single state,
 # e.g. 'mu_mu' or a list of final states, e.g. ['mu_mu', 'e_e']. The
 # following can be commented in or out depending on the channels
-# needed. Note this is an 'OrderedDict to ensure that the keys remain
+# needed. Note this is an 'OrderedDict' to ensure that the keys remain
 # in the order specified. Keys which require mathmode in LaTeX are
 # enclosed in '$'.
 import collections
@@ -90,9 +90,7 @@ masses = [mass*1e-2 for mass in xrange(1, 200)]
 # Try to load matplotlib.
 try: import matplotlib.pyplot as pyplot
 except: pyplot = None
-colors = ["red", "green", "blue", "orange", "cyan", "magenta", "sienna", 
-          "purple", "maroon", "navy", "gray"]
-
+colors = ["red", "green", "blue", "orange", "magenta", "cyan", "gray"]
 
 # Loop over all the models.
 for name, model in models.items():

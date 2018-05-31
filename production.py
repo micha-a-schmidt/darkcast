@@ -45,7 +45,7 @@ class BreitWigner:
         
         m: mass (GeV).
         """
-        # Runing width, equation A.3.
+        # Running width, equation A.3.
         if self.lr != None:
             k, sm = 0, m**2
             for br, m0, m1 in self.drs:
@@ -97,17 +97,18 @@ class Production:
         the square of the global coupling.
 
         If multiple channels are specified, these are provided in a
-        list via 'channels' of the form [(mechanism, fraction),
-        ...]. The mechanism is given as above. The fraction
-        can be given either as a number, or a mass dependent function,
-        e.g. 'fraction(mass (GeV))'.
+        dictionary via 'channels' where the keys are the mechanisms
+        and their associated values are the fractions. The mechanism
+        is given as above. The fraction can be given either as a
+        number, or a mass dependent function, e.g. 'fraction(mass
+        (GeV))'.
 
-        Finally, 'channels' can be a string, specifying a data file
-        from which to load the production. The first column is the
-        mass interpolation points and all remaining columns are the
-        mass dependent ratios for each mechanism. The first row
-        specifies the built-in mechanism for each column. User defined
-        mechanisms cannot be used here.
+        The 'Datasets' class provides a dictionary of datasets, and
+        consequently can be passed as the 'channels' argument. The
+        first column of the dataset is the mass interpolation points
+        and all remaining columns are the mass dependent ratios for
+        each mechanism. The first row specifies the built-in mechanism
+        for each column. User defined mechanisms cannot be used here.
         """
         # Initialize the cached results.
         self.name = 'undefined'
@@ -175,7 +176,7 @@ class Production:
         g0:     global coupling for the first model.
         g1:     global coupling for the second model.
         model0: first model, numerator.
-        model1: second model, denomenator.
+        model1: second model, denominator.
         """
         # Return the cached result if valid.
         if self.__cache[0] == m: return (g0/g1)**2*self.__cache[-1]

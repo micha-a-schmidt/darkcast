@@ -75,8 +75,8 @@ model = darkcast.Model("dark_photon")
 # production = darkcast.Production({"eta_gamma": 0.01, "omega_pi0": 0.99})
 
 # The mechanism fractions can be mass dependent functions. Note that for
-# each mass the fractions are not normalised. It is the responsibility of
-# the user to ensure normalised fractions.
+# each mass the fractions are not normalized. It is the responsibility of
+# the user to ensure normalized fractions.
 #
 # def eta_frac(m): return m**2/(m**2 + 5.0)
 # def omega_frac(m): return 5.0/(m**2 + 5.0)

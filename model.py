@@ -32,8 +32,8 @@ class Model:
         """
         Load a model, given its name.
 
-        The model must exist in the form <name>.py and is searched for
-        along these paths in the following order:
+        The model must exist in the form '<name>.py' and is searched
+        for along these paths in the following order:
         (0) The current directory within the Python interpreter.
         (1) The paths defined by the environment variable 
             'DARKCAST_MODEL_PATH'.

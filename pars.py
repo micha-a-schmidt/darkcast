@@ -2,7 +2,7 @@
 # Copyright (C) 2018 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 """
 This module contains all the relevant parameters used by
-Darkcast. They can be simply redfined by importing the module and
+Darkcast. They can be simply redefined by importing the module and
 changing the relevant parameter, e.g. 'import darkcast' and
 'darkcast.pars.ge = 1'. The following float value parameters are
 defined.
@@ -30,7 +30,7 @@ dms:  meson branching fractions and final state masses (GeV),
 
 rfs:  interpolation grids for each final state R_mu^f from equation 2.15
       split by individual meson contributions, including interference 
-      (unitless).
+      (unitless). These grids are stored in the 'vmd' directory.
 """
 import math, utils
 

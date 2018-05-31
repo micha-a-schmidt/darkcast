@@ -476,19 +476,32 @@ class Datasets(collections.OrderedDict):
 def latex(line):
     """
     Return a line with special LaTeX characters formatted,
-    e.g. particle names.
+    e.g. particle names. Alternatively, format the name of a
+    production mechanism.
 
-    line: string to format.
+    line: string (or production mechanism) to format.
     """
-    grk = ["gamma", "nu", "mu", "tau", "pi", "eta", "rho", "omega", "phi"]
-    dct = [("_",     r" ")
-    ] + [("nu%s" % l, r"nu_{%s}" % l) for l in ["e", "mu", "tau"]
-    ] + [(l, r"\%s" % l) for l in grk
-    ] + [(l + "0", l + "^{0}") for l in grk
-    ] + [(l + "+", l + "^{+}") for l in grk
-    ] + [(l + "-", l + "^{-}") for l in grk]
-    for old, new in dct: line = line.replace(old, new)
-    return line
+    try:
+        prod = line
+        line = prod.name
+        if line == "undefined":
+            if len(prod.channels) == 10: line = "LHC"
+            else: line = latex(prod.channels[-1])
+        elif line.endswith("_brem"): line = "$%s$-brem" % line[0:-5]
+        elif line == "e_e": line = latex("$e^+ e^-$")
+        else: line = "$%s$" % latex(line.replace("_", " rightarrow X "))
+        return line
+    except:
+        smb = ["gamma", "nu", "mu", "tau", "pi", "eta", "rho", "omega", "phi",
+               "rightarrow"]
+        dct = [("_",     r" ")
+        ] + [("nu%s" % l, r"nu_{%s}" % l) for l in ["e", "mu", "tau"]
+        ] + [(l, r"\%s" % l) for l in smb
+        ] + [(l + "0", l + "^{0}") for l in smb
+        ] + [(l + "+", l + "^{+}") for l in smb
+        ] + [(l + "-", l + "^{-}") for l in smb]
+        for old, new in dct: line = line.replace(old, new)
+        return line
 
 ###############################################################################
 def logo(x = 0.87, y = 0.90, width = 0.12):
@@ -502,8 +515,7 @@ def logo(x = 0.87, y = 0.90, width = 0.12):
     """
     try:
         from matplotlib import pyplot
-        x, y, width = float(x), float(y), float(width)
-        lw = int(width/0.12)
+        x, y, width, lw = float(x), float(y), float(width), width/0.12
         a = pyplot.axes([x, y, width, width/100*80], frameon = False)
 
         # Draw the photon.

@@ -39,7 +39,7 @@ class Efficiency:
         rvals:  true if the efficiency is for limits with r-values, false
                 otherwise.
         """
-        # Return if effciency for a r-value limit.
+        # Return if efficiency for a r-value limit.
         self.__rvals = rvals
         if self.__rvals: return
 

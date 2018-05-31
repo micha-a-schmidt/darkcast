@@ -3,18 +3,17 @@
 """
 Darkcast is the companion software package to the paper 'Serendipity
 in dark photon searches' and is a framework for recasting constraints
-from dark photon searches into other models. This package is still
-under initial development but most of the core functionality is in
-place. The following directory structure is in place:
+from dark photon searches into other models. The following directory
+structure is in place:
 
-data:   contains the R_mu^f interpolation grid from equation 2.5, split 
-        by individual mseon contributions, including interference.
+vmd:    contains the R_mu^f interpolation grids from equation 2.5, split 
+        by individual meson contributions, including interference.
 models: all models reported in the paper are defined here.
 limits: limits reported in the paper are provided here. Files of the 
-        form <name>.py define all needed information for a limit,
+        form '<name>.py' define all needed information for a limit,
         e.g. meta-data, model, production, bounds, and
-        efficiency. Files of the form <name>.lmt provide the actual
-        limit data, while <name>.prd provide production mechanism
+        efficiency. Files of the form '<name>.lmt' provide the actual
+        limit data, while' <name>.prd' provide production mechanism
         ratios for more complex scenarios.
 
 Example usage is as follows:
@@ -22,7 +21,7 @@ Example usage is as follows:
 # Load the module.
 import darkcast
 
-# Change any global parameters, here the speed of light.
+# Change any global parameters, here the speed of light (m/s).
 darkcast.pars.c = 3e8
 
 # Load a limit, here the LHCb prompt limit.
@@ -39,11 +38,11 @@ model = darkcast.Model('B_boson')
 recast = limit.recast(model)
 
 # Write out the recast limit.
-recast.write('LHCb_b_boson.txt')
+recast.write('LHCb_B_boson.txt')
 '''
 
-More detailed examples, as well as simplified plotting functions will
-be provided in the near future. Further documentation is provided per
+More detailed examples with explanations are provided in the
+'examples' directory and further documentation is provided per
 sub-module and class.
 """
 from utils import Dataset, Datasets

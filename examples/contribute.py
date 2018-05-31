@@ -18,7 +18,7 @@ sys.path.insert(1, os.path.join(os.path.dirname(os.path.realpath(
 # Import the Darkcast module.
 import darkcast
 
-# New models and limits must exist in the form <name>.py and are
+# New models and limits must exist in the form '<name>.py' and are
 # searched for along these paths in the following order:
 # (0) The current directory within the Python interpreter.
 # (1) The paths defined by the environment variables 
@@ -38,8 +38,7 @@ usermodel = darkcast.Model("user_model")
 # Try to load matplotlib.
 try: import matplotlib.pyplot as pyplot
 except: pyplot = None
-colors = ["red", "green", "blue", "orange", "cyan", "magenta", "sienna", 
-          "purple", "maroon", "navy", "gray"]
+colors = ["red", "green", "blue", "orange", "magenta", "cyan", "gray"]
 
 # If possible, initialize the plot.
 if pyplot:
