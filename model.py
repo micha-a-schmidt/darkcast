@@ -138,9 +138,8 @@ class Model:
             elif len(dtrs) == 2 and dtrs[0] == dtrs[1] and dtrs[0] in pars.mfs:
                 dtr = dtrs[0]
                 cf, mf, xf = pars.cfs[dtr], pars.mfs[dtr], self.xfs[dtr]
-                if m > 2*mf:
-                    part = (cf*xf**2.0*m/(12.0*math.pi)*(
-                            1.0 + mf**2/m**2)*math.sqrt(1.0 - 4.0*mf**2.0/m**2))
+                if m > 2.0*mf: part = (cf*xf**2.0*m/(12.0*math.pi)*(
+                        1.0 + 2.0*mf**2/m**2)*math.sqrt(1.0 - 4.0*mf**2.0/m**2))
                 else: part = 0
 
             # Decay into hadrons, equations 2.17 and 2.18.
