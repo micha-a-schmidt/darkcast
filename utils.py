@@ -515,43 +515,46 @@ def logo(x = 0.87, y = 0.90, width = 0.12, c1 = "gray", c2 = "maroon"):
     c1:    color of the photon propagator.
     c2:    color of the kinetic mixing and text.
     """
-    from matplotlib import pyplot
-    x, y, width, lw = float(x), float(y), float(width), width/0.12
-    a = pyplot.axes([x, y, width, width/100*80], frameon = False)
-
-    # Draw the photon.
-    xs = [float(x - 50) for x in xrange(101)]
-    ys = [10.0*math.sin(x/10*math.pi) for x in xs]
-    a.plot(xs, ys, color = c1, linewidth = lw)
-
-    # Draw the DC.
-    a.plot([-30, -3, -30], [-30, 0, 30], color = c2, linewidth = 3*lw)
-    a.plot([ 30,  3,  30], [-30, 0, 30], color = c2, linewidth = 3*lw)
-    a.plot([-30, -30], [-20, 20], color = c2, linewidth = lw)
-
-    # Draw the ARK.
-    x, y, w, h, c, l = -20, -33, 4.0, 10.0, c2, lw
-    a.plot([x, x+w/2, x+w], [y, y+h, y], color = c, linewidth = l)
-    a.plot([x+w/4, x+3*w/4], [y+h/3, y+h/3], color = c, linewidth = l)
-    x += 6
-    a.plot([x, x, x+w, x, x+w], [y, y+h, y+3*h/4, y+h/2, y], color = c,
-           linewidth = l)
-    x += 6
-    a.plot([x, x], [y, y+h], color = c, linewidth = l)
-    a.plot([x+w, x, x+w], [y, y+h/2, y+h], color = c, linewidth = l)
-
-    # Draw the AST.
-    x, y = 30, 16
-    a.plot([x, x+w/2, x+w], [y, y+h, y], color = c, linewidth = l)
-    a.plot([x+w/4, x+3*w/4], [y+h/3, y+h/3], color = c, linewidth = l)
-    x += 6
-    a.plot([x, x+w, x, x+w], [y, y+h/4, y+3*h/4, y+h], color = c, linewidth = l)
-    x += 6
-    a.plot([x+w/2, x+w/2], [y, y+h], color = c, linewidth = l)
-    a.plot([x, x+w], [y+h, y+h], color = c, linewidth = l)
-
-    # Format the plot.
-    a.set_xlim([-50, 50])
-    a.set_ylim([-40, 40])
-    a.set_xticks([])
-    a.set_yticks([])
+    try:
+        from matplotlib import pyplot
+        x, y, width, lw = float(x), float(y), float(width), width/0.12
+        a = pyplot.axes([x, y, width, width/100*80], frameon = False)
+        
+        # Draw the photon.
+        xs = [float(x - 50) for x in xrange(101)]
+        ys = [10.0*math.sin(x/10*math.pi) for x in xs]
+        a.plot(xs, ys, color = c1, linewidth = lw)
+        
+        # Draw the DC.
+        a.plot([-30, -3, -30], [-30, 0, 30], color = c2, linewidth = 3*lw)
+        a.plot([ 30,  3,  30], [-30, 0, 30], color = c2, linewidth = 3*lw)
+        a.plot([-30, -30], [-20, 20], color = c2, linewidth = lw)
+        
+        # Draw the ARK.
+        x, y, w, h, c, l = -20, -33, 4.0, 10.0, c2, lw
+        a.plot([x, x+w/2, x+w], [y, y+h, y], color = c, linewidth = l)
+        a.plot([x+w/4, x+3*w/4], [y+h/3, y+h/3], color = c, linewidth = l)
+        x += 6
+        a.plot([x, x, x+w, x, x+w], [y, y+h, y+3*h/4, y+h/2, y], color = c,
+               linewidth = l)
+        x += 6
+        a.plot([x, x], [y, y+h], color = c, linewidth = l)
+        a.plot([x+w, x, x+w], [y, y+h/2, y+h], color = c, linewidth = l)
+        
+        # Draw the AST.
+        x, y = 30, 16
+        a.plot([x, x+w/2, x+w], [y, y+h, y], color = c, linewidth = l)
+        a.plot([x+w/4, x+3*w/4], [y+h/3, y+h/3], color = c, linewidth = l)
+        x += 6
+        a.plot([x, x+w, x, x+w], [y, y+h/4, y+3*h/4, y+h], color = c,
+               linewidth = l)
+        x += 6
+        a.plot([x+w/2, x+w/2], [y, y+h], color = c, linewidth = l)
+        a.plot([x, x+w], [y+h, y+h], color = c, linewidth = l)
+        
+        # Format the plot.
+        a.set_xlim([-50, 50])
+        a.set_ylim([-40, 40])
+        a.set_xticks([])
+        a.set_yticks([])
+    except: print "Could not draw the Darkcast logo."

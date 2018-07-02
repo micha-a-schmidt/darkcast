@@ -4,6 +4,7 @@ Darkcast is the companion software package to the paper [*Serendipity in dark ph
 ```bash
 wget https://gitlab.com/philten/darkcast/-/archive/master/darkcast-master.tar.gz
 tar -xzvf darkcast-master.tar.gz
+mv darkcast-master darkcast
 cd darkcast/examples
 ```
 
@@ -113,6 +114,26 @@ dark-sector references.
 ### [vmd](vmd)
 
 This directory contains all the VMD data needed to calculate limits. Twelve curves are provided, giving the $`\mathcal{R}_\mu^\mathcal{F}(m)`$ curves of figure 1 from [*Serendipity in dark photon searches*](https://arxiv.org/abs/1801.04847). Here, $`\mathcal{F}`$ specifies the final state. Each final state is divided into its $`\omega`$, $`\phi`$, and $`\rho^0`$ components, including the $`\omega-\phi`$ interference term. All curves are given as a function of $`m`$ in GeV.
+
+## LXPLUS (ATLAS specific) Directions
+
+Depending on the default environmnent for a user on LXPLUS, it is possible that Darkcast will not work out of the box. Specifically, LHCb and CMS users appear to have no issue, while ATLAS users do. This typically is because the Python version is too old (less than `2.7`. Additionally, `matplotlib` is not necessarily available by default and so plotting function may not work out of the box.
+
+During a recent Darkcast tutorial, Caterina Doglioni suggested the following prescription for setting up a working Darkcast environment for ATLAS users via a `conda` environment.
+
+```bash
+# Requires a graphical session (conda will look for DISPLAY), e.g. ssh -Y.
+wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+chmod 755 Miniconda2-latest-Linux-x86_64.sh
+# When asked to put the miniconda directory in your PATH say no.
+export PATH=$PWD/miniconda2/bin:$PATH
+conda create --name=darkcastenv python=2.7
+source activate darkcastenv
+conda install -c conda-forge matplotlib
+Every time you log in then run the following.
+export PATH=/afs/cern.ch/user/d/doglioni/Work/miniconda2/bin:$PATH
+source activate darkcastenv
+```
 
 ## History
 
