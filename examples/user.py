@@ -45,6 +45,9 @@ if pyplot:
     fig, ax = pyplot.subplots()
     icolor, labels = itertools.cycle(colors), {}
 
+# Create the directory for recasted limits.
+if not os.path.exists("recast"): os.makedirs("recast")
+
 # Recast the user limit to the user model.
 for model in [darkcast.Model("dark_photon"), usermodel]:
 
@@ -53,7 +56,9 @@ for model in [darkcast.Model("dark_photon"), usermodel]:
  
     # Save the limit to a text file. This is done with the
     # 'Datasets.write' method.
-    recast.write("contribute_%s.txt" % model.name)
+    if not os.path.exists("recast/" + model.name):
+        os.makedirs("recast/" + model.name)
+    recast.write("recast/%s/%s.lmt" % (model.name, userlimit.name))
         
     # Plot. The 'Datasets.plots' method returns formatted lists of
     # x and y points which can be easily passed to a plotting
@@ -77,4 +82,4 @@ if pyplot:
     ax.set_ylabel("g")
     ax.set_title(darkcast.utils.latex(userlimit.name))
     darkcast.utils.logo()
-    fig.savefig("contribute.pdf")
+    fig.savefig("user.pdf")

@@ -14,15 +14,15 @@ python <example>.py
 ```
 where `<example>.py` is the relevant example. If the Python plotting module `matplotlib` is available, all the examples will produce plots in the PDF format. Otherwise, only text output of the recasting will be produced, which can be read in by the user's plotting utility of choice.
 
-1.  `bfrac.py`: this example calculates the $`\mu\mu`$, $`ee`$, $`\nu\nu`$ and hadronic branching fractions for all the available models in Darkcast. This will produce the output `bfrac_<model>_<channel>.txt` where each file gives the branching fraction for the given model and channel. The first column is the $`X`$ boson mass in GeV and the second column is the branching fraction. The plots `bfrac_<model>.pdf` will also be produced.
-2.  `visible.py`: loads all the available visible limits and recasts them to all the available models. Depending on the machine, this example can take some time. To avoid clutter a `recast` directory is created in the directory the example is run from and text file are produced in the format `recast/<model>/<limit>.lim`. For each limit the first column is the $`X`$ boson mass in GeV, the second column is the lower global coupling limit, and if the limit is two-sided an optional third column gives the upper global coupling limit.
-3.  `invisible.py`: is the same as `visible.py` but now recasts all the invisible limits. The text file limits are written to the same directory structure as `visible.py`
-4.  `contribute.py`: demonstrates how new models and limits can be written and outputs the limits `contribute_<model>.txt` for the user limit defined by `user_limit.py` using the `dark_photon` model and the model defined by `user_model`. Optionally, the plot `contribute_user_limit.pdf` is produced. The following files are used by `user_limit.py`, where details on how each of these files can be used are given in `user_limit.py`.
+1. `bfrac.py`: this example calculates the $`\mu\mu`$, $`ee`$, $`\nu\nu`$ and hadronic branching fractions for all the available models in Darkcast. This will produce the output `bfrac_<model>_<channel>.txt` where each file gives the branching fraction for the given model and channel. The first column is the $`X`$ boson mass in GeV and the second column is the branching fraction. The plots `bfrac_<model>.pdf` will also be produced.
+2. `visible.py`: loads all the available visible limits and recasts them to all the available models. Depending on the machine, this example can take some time. To avoid clutter a `recast` directory is created in the directory the example is run from and text file are produced in the format `recast/<model>/<limit>.lmt`. For each limit the first column is the $`X`$ boson mass in GeV, the second column is the lower global coupling limit, and if the limit is two-sided an optional third column gives the upper global coupling limit.
+3. `invisible.py`: is the same as `visible.py` but now recasts all the invisible limits. The text file limits are written to the same directory structure as `visible.py`
+4. `user.py`: demonstrates how new user defined models and limits can be written, and outputs the limits `recast/<model>/user_limit.lmt` for the user limit defined by `user_limit.py` using the models `dark_photon` model and `user_model`. Here, `user_model` is defined by `user_model.py`. Optionally, the plot `user.pdf` is produced. The following files are used by `user_limit.py`, where details on how each of these files can be used are given in `user_limit.py`.
   * `user_limit_single.lmt`: defines an example lower bound limit.
   * `user_limit_double.lmt`: defines an example double-sided limit.
   * `user_limit_rvalue.lmt`: defines an example full limit using r-values.
   * `user_limit.prd`: defines the production mechanisms for the limit.
-5.  `logo.py`: just draw the Darkcast logo.
+5. `logo.py`: draws the Darkcast logo.
 
 The following is a simple usage example which recasts the prompt LHCb dark photon limits to the $`B`$ boson model.
 ```python
@@ -46,7 +46,7 @@ model = darkcast.Model('B_boson')
 recast = limit.recast(model)
 
 # Write out the recast limit.
-recast.write('LHCb_B_boson.txt')
+recast.write('LHCb_B_boson.lmt)
 ```
 
 ## References
@@ -84,15 +84,15 @@ import darkcast
 limit = darkcast.Limit('name')
 ```
 the following search paths are used.
-1.  The current directory within the Python interpreter.
-2.  The paths defined by the environment variable `DARKCAST_LIMIT_PATH`.
-3.  The `limits` directory of the Darkcast package.
-Any data required by the limits is searched along the following paths:
+1. The current directory within the Python interpreter.
+2. The paths defined by the environment variable `DARKCAST_LIMIT_PATH`.
+3. The `limits` directory of the Darkcast package.
 
-1.  The absolute path, if the absolute path is given.
-2.  The current directory within the Python interpreter.
-3.  The paths defined by the environment variable `DARKCAST_DATA_PATH`.
-4.  The Darkcast package directory.
+Any data required by the limits is searched along the following paths:
+  1. The absolute path, if the absolute path is given.
+  2. The current directory within the Python interpreter.
+  3. The paths defined by the environment variable `DARKCAST_DATA_PATH`.
+  4. The Darkcast package directory.
 
 ### [models](models)
 
@@ -102,9 +102,9 @@ import darkcast
 model = darkcast.Model('name')
 ```
 the following search paths are used.
-1.  The current directory within the Python interpreter.
-2.  The paths defined by the environment variable `DARKCAST_MODEL_PATH`.
-3.  The `models` directory of the Darkcast package.
+1. The current directory within the Python interpreter.
+2. The paths defined by the environment variable `DARKCAST_MODEL_PATH`.
+3. The `models` directory of the Darkcast package.
 
 ### [recast](recast)
 
