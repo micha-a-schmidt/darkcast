@@ -139,7 +139,7 @@ export PATH=$PWD/miniconda2/bin:$PATH
 conda create --name=darkcastenv python=2.7
 source activate darkcastenv
 conda install -c conda-forge matplotlib
-Every time you log in then run the following.
+# Every time you log in then run the following.
 export PATH=/afs/cern.ch/user/d/doglioni/Work/miniconda2/bin:$PATH
 source activate darkcastenv
 ```
