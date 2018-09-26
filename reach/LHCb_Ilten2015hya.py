@@ -4,11 +4,11 @@ import darkcast
 notes = """
 This limit is a projection for LHCb searches using a di-electron final
 state from D*0 -> D0 A' decays and cannot be used for recasting, but
-is provided for reference. Two bounds are provided,
-'LHCb_Ilten2015hya_15ifb.lmt' and 'LHCb_Ilten2015hya_300ifb',
-corresponding to the expected luminosity of 15 fb^-1 at the end of LHC
-Run 3 and 300 fb^-1 at the end of the HL-LHC. These limits were
-provided by the authors.
+is provided for reference. Three bounds are provided,
+'LHCb_Ilten2015hya_prompt.lmt', 'LHCb_Ilten2015hya_pre.lmt', and
+'LHCb_Ilten2015hya_post.lmt' corresponding to the prompt, displaced
+pre-module, and displaced post-module searches. These limits were
+extracted from figure 2 (blue lines) of Ilten:2015hya.
 """
 bibtex = """
 @article{Ilten:2015hya,
