@@ -3,9 +3,14 @@
 import darkcast
 notes = """
 This limit is a projection for SeaQuest searches using di-electron and
-di-muon final states. A single bound is provided,
-'SeaQuest_Gardner2015wea.lmt'. These limits were extracted from figure
-2 (red hashed fills) of Gardner:2015wea.
+di-muon final states. Four bounds are provided,
+'SeaQuest_Gardner2015wea_eta_ee.lmt',
+'SeaQuest_Gardner2015wea_eta_mumu.lmt',
+'SeaQuest_Gardner2015wea_brem_ee.lmt', and
+'SeaQuest_Gardner2015wea_brem_mumu.lmt'. The first two bounds are from
+eta decays, while the second two are from proton bremsstrahlung. These
+limits were extracted from figure 2 (red hashed fills) of
+Gardner:2015wea.
 """
 bibtex = """
 @article{Gardner:2015wea,
