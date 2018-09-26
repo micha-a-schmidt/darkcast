@@ -3,9 +3,11 @@
 import darkcast
 notes = """
 This limit is a projection for SHiP searches using meson, QCD, and
-bremsstrahlung production. A single displaced bound is provided,
-'SHiP_Alekhin2015byh.lmt'. These limits were extracted from figure 2.6
-(red, blue, and orange lines) of Alekhin:2015byh.
+bremsstrahlung production. A three displaced bounds are provided,
+'SHiP_Alekhin2015byh_mesons.lmt', 'SHiP_Alekhin2015byh_qcd.lmt', and
+'SHiP_Alekhin2015byh_brem.lmt' corresponding to these three production
+mechanisms. These limits were extracted from figure 2.6 (red, blue,
+and orange lines) of Alekhin:2015byh.
 """
 bibtex = """
 @article{Alekhin:2015byh,
