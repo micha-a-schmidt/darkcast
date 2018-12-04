@@ -2,15 +2,12 @@
 # Copyright (C) 2018 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 import darkcast
 notes = """
-This limit is a projection for SeaQuest searches using di-electron and
-di-muon final states. Four bounds are provided,
-'SeaQuest_Gardner2015wea_eta_ee.lmt',
-'SeaQuest_Gardner2015wea_eta_mumu.lmt',
-'SeaQuest_Gardner2015wea_brem_ee.lmt', and
-'SeaQuest_Gardner2015wea_brem_mumu.lmt'. The first two bounds are from
-eta decays, while the second two are from proton bremsstrahlung. These
-limits were extracted from figure 2 (red hashed fills) of
-Gardner:2015wea.
+This limit is a projection for SeaQuest searches using a di-muon
+final state and produced from eta decays. This limit was
+extracted from figure 2 (red hashed fills) of Gardner:2015wea.
+
+This is a displaced search where the decay volume length over the
+shielding length is 5/25.
 """
 bibtex = """
 @article{Gardner:2015wea,
@@ -29,3 +26,8 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1509.00050;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production("eta_gamma")
+decay = "mu_mu"
+bounds = darkcast.Datasets("reach/SeaQuest_Gardner2015wea_eta_mumu.lmt")
+efficiency = darkcast.Efficiency(lratio = 5.0/25.0)

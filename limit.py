@@ -34,7 +34,7 @@ class Limit:
                 a double-sided bound.
     efficiency: efficiency of class 'Efficiency'.
     """
-    def __init__(self, name):
+    def __init__(self, name, path = None):
         """
         Initialize a limit, given its name.
 
@@ -55,7 +55,9 @@ class Limit:
         self.name = name
 
         # Import the limit.
+        if path: sys.path.insert(1, path)
         limit = __import__(name)
+        if path: del sys.path[1]
 
         # Load the notes and BibTeX.
         try: self.notes = limit.notes
@@ -123,7 +125,7 @@ class Limit:
 
             # Loop over the r-values.
             jdx, tl, tu, gl, gu, rl, ru,  = 0, 0, 0, gmax, -gmax, 1, 1
-            tmin, tmax = float('inf'), 0
+            tmin, tmax = float("inf"), 0
             for idx, r1 in enumerate(rvals.vals):
 
                 # Determine the r-value via equation 2.21.
@@ -162,14 +164,14 @@ class Limit:
                     lower.axes[0].append(m); lower.vals.append(abs(gl))
                     upper.axes[0].append(m); upper.vals.append(abs(gu))
                     jdx, gl, gu, rl, ru = 0, gmax, -gmax, 1, 1
-                    tmin, tmax = float('inf'), 0
+                    tmin, tmax = float("inf"), 0
             
         # Recast lower/upper bounds.
         else:
 
             # Loop over the masses.
             g0l = None
-            for m, g1l in zip(self.bounds["lower"].axes[0], 
+            for m, g1l in zip(self.bounds["lower"].axes[0],
                               self.bounds["lower"].vals):
     
                 # Check if branching fraction and production is non-zero.
@@ -208,7 +210,7 @@ class Limit:
                     if g0u < g0l: g0u, g0l = g0l, g0u
                     lower.axes[0].append(m); lower.vals.append(g0l)
                     upper.axes[0].append(m); upper.vals.append(g0u)
-
+                                   
         # Return the recast bounds.
         bounds = utils.Datasets()
         bounds["lower"] = lower
@@ -227,8 +229,8 @@ class Limits(collections.OrderedDict):
         Load all available models along the specified paths.
 
         paths: paths to search for models. If no paths are specified,
-               search the paths specified by DARKCAST_MODEL_PATH and
-               the local Darkcast model directory.
+               search the paths specified by DARKCAST_LIMIT_PATH and
+               the local Darkcast limit directory.
         """
         super(Limits, self).__init__()
 
@@ -245,5 +247,5 @@ class Limits(collections.OrderedDict):
             limits = sorted(os.listdir(path))
             for limit in limits:
                 if not limit.endswith(".py"): continue
-                try: self[limit[0:-3]] = Limit(limit[0:-3])
+                try: self[limit[0:-3]] = Limit(limit[0:-3], path)
                 except: pass

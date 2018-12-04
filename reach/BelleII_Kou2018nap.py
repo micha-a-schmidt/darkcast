@@ -3,9 +3,13 @@
 import darkcast
 notes = """
 This limit is a projection for Belle II searches. A single prompt
-bound is provided, 'BelleII_Kou2018nap.lmt'. These limits were provided by the
-authors although additional limits can be found in figure 201 of
-Kou:2018nap.
+bound is provided, 'BelleII_Kou2018nap.lmt'. These limits were
+provided by the authors although additional limits can be found in
+figure 201 of Kou:2018nap.
+
+This search is prompt, and is not sensitive to X bosons with lifetimes
+large enough to qualify as non-prompt; the efficiency ratio is assumed
+to be unity, e.g. t0 = 0 and t1 = infinity.
 """
 bibtex = """
 @article{Kou:2018nap,
@@ -21,3 +25,8 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1808.10567;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production("e_e")
+decay = ["e_e", "mu_mu"]
+bounds = darkcast.Dataset("reach/BelleII_Kou2018nap.lmt")
+efficiency = darkcast.Efficiency(t0 = 0, t1 = float("inf"))

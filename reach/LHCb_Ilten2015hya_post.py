@@ -3,12 +3,12 @@
 import darkcast
 notes = """
 This limit is a projection for LHCb searches using a di-electron final
-state from D*0 -> D0 A' decays and cannot be used for recasting, but
-is provided for reference. Three bounds are provided,
-'LHCb_Ilten2015hya_prompt.lmt', 'LHCb_Ilten2015hya_pre.lmt', and
-'LHCb_Ilten2015hya_post.lmt' corresponding to the prompt, displaced
-pre-module, and displaced post-module searches. These limits were
-extracted from figure 2 (blue lines) of Ilten:2015hya.
+state from D*0 -> D0 A' decays. This limit was extracted from figure 2
+(blue lines) of Ilten:2015hya.
+
+The limit is displaced, but does not have r-values and is not a beam
+dump, and so the extrapolation behaviour for displaced r-values is
+used.
 """
 bibtex = """
 @article{Ilten:2015hya,
@@ -28,3 +28,8 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1509.06765;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production("D*0_D0")
+decay = "e_e"
+bounds = darkcast.Datasets("reach/LHCb_Ilten2015hya_post.lmt")
+efficiency = darkcast.Efficiency(lratio = float("inf"))

@@ -49,6 +49,7 @@ class Efficiency:
         # Set the lower proper time.
         if lratio > 0: self.__lratio = 1.0 + lratio
         else:
+            self.__lratio = None
             try: t0 = float(t0); self.__t0 = lambda m: t0
             except: self.__t0 = t0
  
@@ -66,11 +67,16 @@ class Efficiency:
         m:     mass (GeV).
         limit: 'Limit' which includes a model and lower/upper bounds.
         """
-        # Fiducial from displaced limit.
+        # Cached proper times.
         if self.__cache[0:-1] == (m, limit): return self.__cache[-1]
-        try: lratio = self.__lratio
-        except: lratio = None
-        if lratio:
+
+        # Fiducial from displaced limits with no shielding.
+        if self.__lratio == float("inf"):
+            t0 = limit.model.tau(m, limit.bounds["lower"](m))
+            t1 = limit.model.tau(m, limit.bounds["upper"](m))
+        
+        # Fiducial from displaced limit.
+        elif self.__lratio:
 
             # Solve t0 from equation 2.24.
             g0 = limit.bounds["lower"](m)
@@ -89,7 +95,7 @@ class Efficiency:
         else: t0, t1 = self.__t0(m), self.__t1(m)
         self.__cache = (m, limit, (t0, t1))
         return t0, t1
-
+    
     ###########################################################################
     def ratio(self, m, limit, tau0, tau1):
         """
@@ -103,10 +109,10 @@ class Efficiency:
         """
         # If r-value limit, use equation C.4.
         if self.__rvals:
-            t0, t1 = (0, tau1) if tau0 > tau1 else (tau1, float('inf'))
+            t0, t1 = (0, tau1) if tau0 > tau1 else (tau1, float("inf"))
         else: t0, t1 = self.__ts(m, limit)
 
         # Ratio of efficiencies, given by equation 2.23.
         num = math.exp(-t0/tau0) - math.exp(-t1/tau0)
         den = math.exp(-t0/tau1) - math.exp(-t1/tau1)
-        return num/den if den else float('inf')
+        return num/den if den else float("inf")

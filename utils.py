@@ -486,11 +486,11 @@ def latex(line):
         line = prod.name
         if line == "undefined":
             if len(prod.channels) == 10: line = "LHC"
-            else: line = latex(prod.channels[-1])
+            else: line = prod.channels[-1]
         elif line.endswith("_brem"): line = "$%s$-brem" % line[0:-5]
-        elif line == "e_e": line = latex("$e^+ e^-$")
-        else: line = "$%s$" % latex(line.replace("_", " rightarrow X "))
-        return line
+        elif line == "e_e": line = "$e^+ e^-$"
+        elif "_" in line: line = "$%s$" % line.replace("_", " rightarrow X ")
+        return latex(line)
     except:
         smb = ["gamma", "nu", "mu", "tau", "pi", "eta", "rho", "omega", "phi",
                "rightarrow"]
@@ -499,7 +499,8 @@ def latex(line):
         ] + [(l, r"\%s" % l) for l in smb
         ] + [(l + "0", l + "^{0}") for l in smb
         ] + [(l + "+", l + "^{+}") for l in smb
-        ] + [(l + "-", l + "^{-}") for l in smb]
+        ] + [(l + "-", l + "^{-}") for l in smb
+        ] + [("D0", "D^{0}"), ("D*0", "D^{*0}")]
         for old, new in dct: line = line.replace(old, new)
         return line
 

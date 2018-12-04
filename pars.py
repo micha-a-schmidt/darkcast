@@ -86,7 +86,9 @@ tms = {
     "omega": [t/2.0              for t in [1,  1,  0]],
     "phi":   [t/math.sqrt(2)     for t in [0,  0,  1]],
     "eta":   [t/math.sqrt(6)     for t in [1,  1, -1]],
-    "eta'":  [t/(2*math.sqrt(3)) for t in [1,  1,  2]]
+    "eta'":  [t/(2*math.sqrt(3)) for t in [1,  1,  2]],
+    "D0":    [t                  for t in [1,  0,  0]],
+    "D*0":   [t                  for t in [1,  0,  0]]
     }
 
 ###############################################################################
@@ -102,6 +104,7 @@ rvs = {
 # Meson masses (GeV).
 mms = {
     "rho0":  0.77549,
+    "pi0":   0.13498,
     "omega": 0.78265,
     "phi":   1.01946,
     "eta":   0.54785

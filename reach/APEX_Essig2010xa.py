@@ -5,6 +5,11 @@ notes = """
 This limit is a projection for the APEX search. A single prompt bound
 is provided, 'APEX_Essig2010xa.lmt'. These limits are extracted from
 figure 1 (blue line) of Essig:2010xa.
+
+No detailed information is given on the prompt-like
+requirements. However, since the same coupling is used in production
+and decay, the efficiency ratio is assumed to be unity, e.g. t0 = 0
+and t1 = infinity.
 """
 bibtex = """
 @article{Essig:2010xa,
@@ -24,3 +29,8 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1001.2557;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production("e_brem")
+decay = "e_e"
+bounds = darkcast.Dataset("reach/APEX_Essig2010xa.lmt")
+efficiency = darkcast.Efficiency(t0 = 0, t1 = float("inf"))

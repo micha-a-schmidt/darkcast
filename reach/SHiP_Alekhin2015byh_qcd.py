@@ -1,13 +1,15 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
 # Copyright (C) 2018 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 import darkcast
-notes = """
-This limit is a projection for SHiP searches using meson, QCD, and
-bremsstrahlung production. Three displaced bounds are provided,
-'SHiP_Alekhin2015byh_mesons.lmt', 'SHiP_Alekhin2015byh_qcd.lmt', and
-'SHiP_Alekhin2015byh_brem.lmt' corresponding to these three production
-mechanisms. These limits were extracted from figure 2.6 (red, blue,
-and orange lines) of Alekhin:2015byh.
+notes = """ 
+This limit is a projection for SHiP searches using QCD production, q
+qbar -> V and q g -> q V. This limit was extracted from figure 2.6
+(orange line) of Alekhin:2015byh. The flavor dependent production is
+taken from the Drell-Yan component of LHC production at low mass from
+Ilten:2016tk. This is a very rough approximation.
+
+This is a displaced search where the decay volume length over the
+shielding length is 48/64.
 """
 bibtex = """
 @article{Alekhin:2015byh,
@@ -27,3 +29,9 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1504.04855;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production({"u_u": 0.18, "d_d": 0.81, "s_s": 0.01})
+production.name = "QCD"
+decay = "e_e"
+bounds = darkcast.Datasets("reach/SHiP_Alekhin2015byh_qcd.lmt")
+efficiency = darkcast.Efficiency(lratio = 48.0/64.0)

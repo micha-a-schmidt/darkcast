@@ -2,9 +2,15 @@
 # Copyright (C) 2018 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 import darkcast
 notes = """
-This limit is a projection for the VEPP-3 search. A single prompt
-bound is provided, 'VEPP3_Wojtsekhowski2012zq.lmt'. These limits are
-extracted from figure 9 (magenta line) of Wojtsekhowski:2012zq.
+This limit is a projection for the VEPP-3 search for dark photon
+produced from a positron beam incident on a hydrogen target. This
+limit is extracted from figure 9 (magenta line) of
+Wojtsekhowski:2012zq.
+
+No detailed information is given on the prompt-like
+requirements. However, since the same coupling is used in production
+and decay, the efficiency ratio is assumed to be unity, e.g. t0 = 0
+and t1 = infinity.
 """
 bibtex = """
 @article{Wojtsekhowski:2012zq,
@@ -18,3 +24,8 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1207.5089;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production("e_e")
+decay = "e_e"
+bounds = darkcast.Dataset("reach/VEPP3_Wojtsekhowski2012zq.lmt")
+efficiency = darkcast.Efficiency(t0 = 0, t1 = float("inf"))

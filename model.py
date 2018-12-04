@@ -28,7 +28,7 @@ class Model:
     q:      quark U(3) charge matrix.
     """
     ###########################################################################
-    def __init__(self, name, states = None, iwidth = None):
+    def __init__(self, name, states = None, iwidth = None, path = None):
         """
         Load a model, given its name.
 
@@ -61,11 +61,14 @@ class Model:
         states: optionally, specify the allowed final states of the model.
         iwidth: optionally, specify the invisible width as a function of 
                 a given mass and this model.
+        path:   optionally, specify the path to load the module from.
         """
         # Import the model.
         self.name = name
         self.__cache = {}
+        if path: sys.path.insert(1,path)
         model = __import__(name)
+        if path: del sys.path[1]
 
         # Load the model's fermion couplings.
         self.xfs = {}
@@ -229,5 +232,6 @@ class Models(collections.OrderedDict):
             models = sorted(os.listdir(path))
             for model in models:
                 if not model.endswith(".py"): continue
-                try: self[model[0:-3]] = Model(model[0:-3], states, iwidth)
+                try: self[model[0:-3]] = Model(
+                        model[0:-3], states, iwidth, path)
                 except: pass

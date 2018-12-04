@@ -3,11 +3,12 @@
 import darkcast
 notes = """
 This limit is a projection for HPS searches using a di-electron final
-state and cannot be used for recasting, but is provided for
-reference. A prompt bound and displaced bound are provided,
-'HPS_Baltzell2016eee_prompt.lmt' and
-'HPS_Baltzell2016eee_displaced.lmt'. These limits were provided by the
-authors.
+state and was provided by the authors.
+
+No detailed information is given on the prompt-like
+requirements. However, since the same coupling is used in production
+and decay, the efficiency ratio is assumed to be unity, e.g. t0 = 0
+and t1 = infinity.
 """
 bibtex = """
 @article{Baltzell:2016eee,
@@ -26,3 +27,8 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1612.07821;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production("e_brem")
+decay = "e_e"
+bounds = darkcast.Dataset("reach/HPS_Baltzell2016eee_prompt.lmt")
+efficiency = darkcast.Efficiency(t0 = 0, t1 = float("inf"))

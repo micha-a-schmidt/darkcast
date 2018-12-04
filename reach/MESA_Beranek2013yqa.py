@@ -5,6 +5,10 @@ notes = """
 This limit is a projection for the MESA search. A single prompt bound
 is provided, 'MESA_Beranek2013yqa.lmt'. These limits are extracted
 from figure 12 (blue and red lines) of Beranek:2013yqa.
+
+This search is prompt, and is not sensitive to X bosons with lifetimes
+large enough to qualify as non-prompt; the efficiency ratio is assumed
+to be unity, e.g. t0 = 0 and t1 = infinity.
 """
 bibtex = """
 @article{Beranek:2013yqa,
@@ -23,3 +27,8 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1303.2540;%%"
 }
 """
+model = darkcast.Model("dark_photon")
+production = darkcast.Production("e_brem")
+decay = ["e_e", "mu_mu"]
+bounds = darkcast.Dataset("reach/MESA_Beranek2013yqa.lmt")
+efficiency = darkcast.Efficiency(t0 = 0, t1 = float("inf"))
