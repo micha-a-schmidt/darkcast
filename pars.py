@@ -1,5 +1,5 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
-# Copyright (C) 2018 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
+# Copyright (C) 2019 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 """
 This module contains all the relevant parameters used by
 Darkcast. They can be simply redefined by importing the module and
