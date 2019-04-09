@@ -130,7 +130,7 @@ This directory contains all the VMD data needed to calculate limits. Twelve curv
 
 ## LXPLUS (ATLAS specific) Directions
 
-Depending on the default environmnent for a user on LXPLUS, it is possible that Darkcast will not work out of the box. Specifically, LHCb and CMS users appear to have no issue, while ATLAS users do. This typically is because the Python version is too old (less than `2.7`. Additionally, `matplotlib` is not necessarily available by default and so plotting function may not work out of the box.
+Depending on the default environmnent for a user on LXPLUS, it is possible that Darkcast will not work out of the box. Specifically, LHCb and CMS users appear to have no issue, while ATLAS users do. This typically is because the Python version is too old (less than `2.7`). Additionally, `matplotlib` is not necessarily available by default and so plotting function may not work out of the box.
 
 During a recent Darkcast tutorial, Caterina Doglioni suggested the following prescription for setting up a working Darkcast environment for ATLAS users via a `conda` environment.
 
