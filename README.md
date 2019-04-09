@@ -151,6 +151,6 @@ source activate darkcastenv
 ## History
 
 * **v0.2** - 09/04/2019
- * Second beta release of the Darkcast code. A number of limits have been added, including reach for future experiments.
+  * Second beta release of the Darkcast code. A number of limits have been added, including reach for future experiments.
 * **v0.1** - 31/05/2018
- * First beta release of the full Darkcast code.
+  * First beta release of the full Darkcast code.
