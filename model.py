@@ -109,7 +109,7 @@ class Model:
     ###########################################################################
     def width(self, states, m, g = 1.0):
         """
-        Return the width, in 1/GeV, for the specified states, mass,
+        Return the width, in GeV, for the specified states, mass,
         and global coupling.
 
         states: final state or states.
