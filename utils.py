@@ -485,7 +485,7 @@ def latex(line):
         prod = line
         line = prod.name
         if line == "undefined":
-            if len(prod.channels) == 10: line = "LHC"
+            if len(prod.channels) > 4: line = "LHC"
             else: line = prod.channels[-1]
         elif line.endswith("_brem"): line = "$%s$-brem" % line[0:-5]
         elif line == "e_e": line = "$e^+ e^-$"
