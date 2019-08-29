@@ -43,14 +43,15 @@ except: pyplot = None
 colors = ["red", "green", "blue", "orange", "magenta", "cyan", "gray"]
 
 # Create the directory for recasted limits.
-if not os.path.exists("recast"): os.makedirs("recast")
+if not os.path.exists("recast/limits"): os.makedirs("recast/limits")
 
 # Loop over all the models.
 for name, model in models.items():
 
     # Create the recasted limit directory for this model.
     print "Recasting limits to the %s model." % name
-    if not os.path.exists("recast/" + name): os.makedirs("recast/" + name) 
+    if not os.path.exists("recast/limits/" + name):
+        os.makedirs("recast/limits/" + name) 
 
     # If possible, initialize the plot.
     if pyplot:
@@ -67,7 +68,7 @@ for name, model in models.items():
 
         # Save the limit to a text file. This is done with the
         # 'Datasets.write' method.
-        recast.write("recast/%s/%s.lmt" % (name, label))
+        recast.write("recast/limits/%s/%s.lmt" % (name, label))
             
         # Plot. The 'Datasets.plots' method returns formatted
         # lists of x and y points which can be easily passed to a

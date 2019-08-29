@@ -1,0 +1,8 @@
+# Ignore Emacs generated saves.
+*.~
+
+# Ignore compiled Python.
+*.pyc
+
+# Ignore generated plots.
+*.pdf
