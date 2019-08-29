@@ -35,5 +35,5 @@ production = darkcast.Production({
     "pi0_gamma": lambda m: 1.0*(m <  0.13498 - 2*5.110e-04),
     "eta_gamma": lambda m: 1.0*(m >= 0.13498 - 2*5.110e-04)})
 decay = ["e_e", "mu_mu"]
-bounds = darkcast.Datasets("limits/NA62_Tsai2019mtm.lmt")
+bounds = darkcast.Datasets("reach/NA62_Tsai2019mtm.lmt")
 efficiency = darkcast.Efficiency(lratio = 75.0/142.0)
