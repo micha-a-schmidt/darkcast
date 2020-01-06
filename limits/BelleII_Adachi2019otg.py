@@ -2,8 +2,9 @@
 # Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 import darkcast
 notes = """
-This limit was extracted from figure 5 (green curve labeled BaBar) of
-Lees:2017lec.
+This limit was extracted from figure 3 (light blue curve) of
+Adachi:2019otg, divided by a factor of 'pars.ge' given by 3.02822e-1
+to match the Darkcast dark photon model.
 
 This search is an invisible search and so the efficiency ratio is
 assumed to be unity, e.g. t0 = 0 and t1 = infinity. Consequently, the
@@ -12,27 +13,22 @@ visible width. Here, the invisible width is set as 99 times the
 visible width, e.g. a branching fraction of 99%.
 """
 bibtex = """
-@article{Lees:2017lec,
- author         = "Lees, J. P. and others",
- title          = "{Search for Invisible Decays of a Dark Photon Produced in
-                   ${e}^{+}{e}^{-}$ Collisions at BaBar}",
- collaboration  = "BaBar",
- journal        = "Phys. Rev. Lett.",
- volume         = "119",
- year           = "2017",
- number         = "13",
- pages          = "131804",
- doi            = "10.1103/PhysRevLett.119.131804",
- eprint         = "1702.03327",
+@article{Adachi:2019otg,
+ author         = "Adachi, I. and others",
+ title          = "{Search for an invisibly decaying $Z^{\prime}$ boson at
+                   Belle II in $e^+ e^- \to \mu^+ \mu^- (e^{\pm} \mu^{\mp})$
+                   plus missing energy final states}",
+ collaboration  = "Belle II",
+ year           = "2019",
+ eprint         = "1912.11276",
  archivePrefix  = "arXiv",
  primaryClass   = "hep-ex",
- reportNumber   = "BABAR-PUB-17-001, SLAC-PUB-16923",
- SLACcitation   = "%%CITATION = ARXIV:1702.03327;%%"
+ SLACcitation   = "%%CITATION = ARXIV:1912.11276;%%"
 }
 """
 model = darkcast.Model("dark_photon", iwidth = lambda m, model:
                        99.0*model.width("visible", m))
-production = darkcast.Production("e_e")
+production = darkcast.Production("mu_brem")
 decay = "invisible"
-bounds = darkcast.Dataset("limits/BaBar_Lees2017lec.lmt")
+bounds = darkcast.Dataset("limits/BelleII_Adachi2019otg.lmt")
 efficiency = darkcast.Efficiency(t0 = 0, t1 = float("inf"))
