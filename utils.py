@@ -37,6 +37,17 @@ def find(name):
     return None
 
 ###############################################################################
+def prod(vs):
+    """
+    Return the product for an iterable object.
+
+    vs: iterable values to multiply.
+    """
+    p = None
+    for v in vs: p = v if p == None else v*p
+    return p
+
+###############################################################################
 def trace(*ts):
     """
     Return the sum of products for a set of lists, e.g. the trace
@@ -44,7 +55,7 @@ def trace(*ts):
 
     ts: lists to multiply and sum.
     """
-    return sum(reduce(operator.mul, t) for t in zip(*ts))
+    return sum(prod(t) for t in zip(*ts))
 
 ###############################################################################
 class SolveError(Exception):
@@ -68,7 +79,7 @@ def solve(f, x0 = None, x1 = None, x = 1, tol = 1e-2, itrs = 100):
     x1:   optional upper bracket value.
     x:    optional starting value for bracket finding.
     tol:  relative tolerance required on x.
-    itrs: maximum number of iterations 
+    itrs: maximum number of iterations.
     """
     # Guess the initial bracket.
     sx, g0, g1 = 2.0, x0 == None, x1 == None
@@ -91,7 +102,7 @@ def solve(f, x0 = None, x1 = None, x = 1, tol = 1e-2, itrs = 100):
     else:
         xmin, xmax, fmin, fmax = x0, x1, f0, f1
         if fmin < fmax: xmin, xmax, fmin, fmax = xmax, xmin, fmax, fmin
-        for itr in xrange(0, int(itrs)):
+        for itr in range(0, int(itrs)):
             if fmin*fmax < 0: break
             x0, x1 = x0/sx, x1*sx
             f0, f1 = f(x0), f(x1)
@@ -105,7 +116,7 @@ def solve(f, x0 = None, x1 = None, x = 1, tol = 1e-2, itrs = 100):
         "Could not find bracketing interval.")
 
     # Apply Ridders' method.
-    for itr in xrange(0, int(itrs)):
+    for itr in range(0, int(itrs)):
         xm = (x0 + x1)/2.0
         fm = f(xm)
         xn = xm + (xm - x0)*(-1.0 if f0 < 0 else 1.0)*fm/math.sqrt(
@@ -155,14 +166,14 @@ class Dataset:
 
         # Read from a file.
         if name != None:
-            try: data, vals = file(find(name)), []
+            try: data, vals = open(find(name)), []
             except: raise DatasetError(
                 "Could not find the dataset '%s'." % name)
             for idx, line in enumerate(data):
                 line = line.split("#")[0].split()
                 if len(line) == 0: continue
                 if dim == 0:
-                    self.axes = [set() for i in xrange(len(line) - 1)]
+                    self.axes = [set() for i in range(len(line) - 1)]
                     dim  = len(self.axes)
                 if len(line) != dim + 1: raise DatasetError(
                     "Line %i has size %i, %i required." 
@@ -178,7 +189,7 @@ class Dataset:
         elif vals:
             for idx, line in enumerate(vals):
                 if dim == 0:
-                    self.axes = [set() for i in xrange(len(line) - 1)]
+                    self.axes = [set() for i in range(len(line) - 1)]
                     dim  = len(self.axes)
                 try:
                     for axis, val in zip(self.axes, line): axis.add(float(val))
@@ -189,7 +200,7 @@ class Dataset:
         # Sort the axes and allocate the values.
         for idx, axis in enumerate(self.axes):
             self.axes[idx] = sorted(list(axis))
-        self.vals = [0]*reduce(operator.mul, [len(a) for a in self.axes], 1)
+        self.vals = [0]*prod([len(a) for a in self.axes])
         for i, val in enumerate(vals):
             self[self.__fkey(val)] = val[-1]
 
@@ -202,7 +213,8 @@ class Dataset:
         xs:     point to interpolate, must be of length n-1.
         method: interpolation method.
         """
-        if not hasattr(xs, "__iter__"): xs = (xs,)
+        try: xs[0]
+        except: xs = (xs,)
         if self.dim() != len(xs): raise DatasetError(
             "Incorrect dimension %i, %i required." % (len(xs), self.dim()))
 
@@ -211,19 +223,19 @@ class Dataset:
         
         # Polynomial interpolation.
         vals, bxs, ks = [], [], self.__skey(xs, True)
-        for k in xrange(2**self.dim()):
+        for k in range(2**self.dim()):
             bks = []
-            for d in xrange(self.dim()): bks.append(k % 2); k = (k - bks[-1])/2
+            for d in range(self.dim()): bks.append(k % 2); k = (k - bks[-1])/2
             sks = [ks[bk][d] for d, bk in enumerate(bks)]
             vals.append(self[self.__s2f(sks)])
             bxs.append(self.__s2x(sks))
         for d, x in enumerate(xs):
             step = 2**(d + 1)
-            for k in xrange(0, len(vals), step):
+            for k in range(0, len(vals), step):
                 
                 # Currently just linear interpolation.
-                x0, x1 = bxs[k][d], bxs[k + step/2][d]
-                val0, val1 = vals[k], vals[k + step/2]
+                x0, x1 = bxs[k][d], bxs[k + int(step/2)][d]
+                val0, val1 = vals[k], vals[k + int(step/2)]
                 if x0 == x1: continue
                 vals[k] = (x1 - x)/(x1 - x0)*val0 + (x - x0)/(x1 - x0)*val1
         return vals[0]
@@ -246,9 +258,10 @@ class Dataset:
             elif x >= axis[k1]: k0 = k1
             else:
                 while k1 - k0 > 1:
-                    k = k0+int(round((x-axis[k0])*(k1-k0)/(axis[k1]-axis[k0])))
+                    k = k0 + int(
+                        round((x - axis[k0])*(k1 - k0)/(axis[k1] - axis[k0])))
                     if x == axis[k]: k0, k1 = k, k; break
-                    if k == k0 or k == k1: k = k0 + (k1 - k0)/2
+                    if k == k0 or k == k1: k = k0 + int((k1 - k0)/2)
                     if x > axis[k]: k0 = k
                     else: k1 = k
             k0s.append(k0)
@@ -292,13 +305,13 @@ class Dataset:
         """
         s, c = [], fkey
         for axis in reversed(self.axes):
-            s.append(c % len(axis)); c = (c - s[-1])/len(axis)
+            s.append(c % len(axis)); c = int((c - s[-1])/len(axis))
         return reversed(s)
 
     ###########################################################################
     def __s2x(self, skey):
         """
-        Transform a structure key to coordinates, e.g. x_0, x_1, ...,
+        Transform a structured key to coordinates, e.g. x_0, x_1, ...,
         x_n-1.
 
         skey: structured key to transform.
@@ -338,16 +351,16 @@ class Dataset:
                 asub &= len(baxis) == len(c.axes[-1])
                 bsub &= len(aaxis) == len(c.axes[-1])
             if asub and bsub:
-                for fkey in xrange(len(c)):
+                for fkey in range(len(c)):
                     c[fkey] = o(a[fkey], b[fkey])
             elif asub:
-                for fkey in xrange(len(c)): 
+                for fkey in range(len(c)): 
                     c[fkey] = o(a(c.__f2x(fkey)), b[fkey])
             elif bsub:
-                for fkey in xrange(len(c)): 
+                for fkey in range(len(c)): 
                     c[fkey] = o(a[fkey], b(c.__f2x(fkey)))
             else:
-                for fkey in xrange(len(c)):
+                for fkey in range(len(c)):
                     xs = c.__f2x(fkey); c[fkey] = o(a(xs), b(xs))
 
         # One object is of type 'Dataset'.
@@ -408,7 +421,7 @@ class Datasets(collections.OrderedDict):
         """
         super(Datasets, self).__init__()
         if name == None: return
-        try: data = file(find(name))
+        try: data = open(find(name))
         except: raise DatasetsError(
             "Could not find the dataset '%s'." % name)
 
@@ -441,12 +454,12 @@ class Datasets(collections.OrderedDict):
         xlabel: label to give the first column, i.e. the x-values.
         format: optionally, the format to write out the values.
         """
-        txt = file(txt, "w")
+        txt = open(txt, "w")
         keys = [key for key in self]
         length = len(format % 0)
         labels = " ".join([("%%%is" % length) % l for l in [xlabel] + keys])
         txt.write("# " + labels[2:] + "\n")
-        for idx, xval in enumerate(self[key].axes[0]):
+        for idx, xval in enumerate(self[keys[0]].axes[0]):
             txt.write(" ".join(format % v for v in [xval] + [
                         self[key].vals[idx] for key in keys]) + "\n")
         txt.close()
@@ -522,7 +535,7 @@ def logo(x = 0.87, y = 0.90, width = 0.12, c1 = "gray", c2 = "maroon"):
         a = pyplot.axes([x, y, width, width/100*80], frameon = False)
         
         # Draw the photon.
-        xs = [float(x - 50) for x in xrange(101)]
+        xs = [float(x - 50) for x in range(101)]
         ys = [10.0*math.sin(x/10*math.pi) for x in xs]
         a.plot(xs, ys, color = c1, linewidth = lw)
         
@@ -558,4 +571,4 @@ def logo(x = 0.87, y = 0.90, width = 0.12, c1 = "gray", c2 = "maroon"):
         a.set_ylim([-40, 40])
         a.set_xticks([])
         a.set_yticks([])
-    except: print "Could not draw the Darkcast logo."
+    except: print("Could not draw the Darkcast logo.")

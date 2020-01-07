@@ -1,6 +1,7 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
 # Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
-import os, sys, inspect, math, collections, pars
+import os, sys, inspect, math, collections
+from . import pars
 
 ###############################################################################
 # Update the model paths.
@@ -118,7 +119,7 @@ class Model:
         """
         # Loop over the states.
         total = 0
-        for state in (states,) if not hasattr(states, "__iter__") else states:
+        for state in (states,) if isinstance(states, str) else states:
 
             # Use cached result if valid.
             cache = self.__cache.get(state)

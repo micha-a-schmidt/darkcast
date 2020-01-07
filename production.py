@@ -1,6 +1,7 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
 # Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
-import math, utils, pars, model
+import math
+from . import utils, pars, model
 
 ###############################################################################
 class BreitWignerError(Exception):
@@ -115,14 +116,15 @@ class Production:
         self.__cache = (None, None)
 
         # Multiple mechanisms from a dictionary.
-        if hasattr(channels, "__iter__"):
+        try:
             self.channels = []
             for prd, frc in channels.items():
                 self.channels.append(Production(prd, frc))
             return
+        except: pass
 
         # Pre-defined mechanism.
-        if isinstance(channels, basestring):
+        if isinstance(channels, str):
             self.name = channels
             moms = channels.split('_')
 

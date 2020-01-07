@@ -1,6 +1,7 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
 # Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
-import os, sys, inspect, collections, utils
+import os, sys, inspect, collections
+from . import utils
 
 ###############################################################################
 # Update the limit paths.
@@ -243,7 +244,7 @@ class Limits(collections.OrderedDict):
                             inspect.getfile(inspect.currentframe()))),"limits")]
 
         # Load the limits.
-        for path in (paths,) if not hasattr(paths, "__iter__") else paths:
+        for path in (paths,) if isinstance(paths, str) else paths:
             limits = sorted(os.listdir(path))
             for limit in limits:
                 if not limit.endswith(".py"): continue

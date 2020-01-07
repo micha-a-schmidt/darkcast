@@ -85,7 +85,7 @@ channels = collections.OrderedDict([
         ])
 
 # Create the list of masses for which to calculate the branching fractions.
-masses = [mass*1e-2 for mass in xrange(1, 200)]
+masses = [mass*1e-2 for mass in range(1, 200)]
 
 # Try to load matplotlib.
 try: import matplotlib.pyplot as pyplot
@@ -113,7 +113,7 @@ for name, model in models.items():
         # widths = [model.width(channel, mass, g = 1) for mass in masses]
 
         # Save the branching fraction to a text file.
-        txt = file("bfrac_%s_%s.txt" % (name, label.replace("$", "")), "w")
+        txt = open("bfrac_%s_%s.txt" % (name, label.replace("$", "")), "w")
         for mass, bfrac in zip(masses, bfracs):
             txt.write("%11.4e %11.4e\n" % (mass, bfrac))
         txt.close()

@@ -45,8 +45,8 @@ More detailed examples with explanations are provided in the
 'examples' directory and further documentation is provided per
 sub-module and class.
 """
-from utils import Dataset, Datasets
-from model import Model, Models
-from production import BreitWigner, Production
-from efficiency import Efficiency
-from limit import Limit, Limits
+from .utils import Dataset, Datasets
+from .model import Model, Models
+from .production import BreitWigner, Production
+from .efficiency import Efficiency
+from .limit import Limit, Limits

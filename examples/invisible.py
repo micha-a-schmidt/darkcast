@@ -49,7 +49,7 @@ if not os.path.exists("recast/limits"): os.makedirs("recast/limits")
 for name, model in models.items():
 
     # Create the recasted limit directory for this model.
-    print "Recasting limits to the %s model." % name
+    print("Recasting limits to the %s model." % name)
     if not os.path.exists("recast/limits/" + name):
         os.makedirs("recast/limits/" + name) 
 
@@ -61,7 +61,7 @@ for name, model in models.items():
     # Loop over the limits.
     for label, limit in limits.items():
         if limit.model.width('invisible', 1) == 0: continue
-        else: print label
+        else: print(label)
         
         # Recast the limit, this returns an object of type 'Datasets'.
         recast = limit.recast(model)

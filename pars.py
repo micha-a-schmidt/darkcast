@@ -32,7 +32,8 @@ rfs:  interpolation grids for each final state R_mu^f from equation 2.15
       split by individual meson contributions, including interference 
       (unitless). These grids are stored in the 'vmd' directory.
 """
-import math, utils
+import math
+from . import utils
 
 ###############################################################################
 # Constants.
@@ -148,4 +149,5 @@ for rf, mesons in rfs.items():
                for meson in mesons}
 
 # Clean up.
-del t, rf, mesons
+try: del t, rf, mesons
+except: pass
