@@ -131,18 +131,18 @@ class Production:
             # Proton-beam bremsstrahlung, equation 2.4.
             if channels == "p_brem":
                 self.__sigma = lambda m, model: (
-                    2*model.xfs['u'] + model.xfs['d'])**2
+                    2*model.xfs["u"](m) + model.xfs["d"](m))**2
     
             # Drell-Yan or lepton-beam bremsstrahlung, equation 2.3 and 2.6.
             elif (len(moms) == 2 and (moms[1] == 'brem' or moms[0] == moms[1]) 
                   and moms[0] in pars.mfs):
                 self.__sigma = lambda m, model: (
-                    model.xfs[moms[0]])**2
+                    model.xfs[moms[0]](m))**2
     
             # Vector meson decay, equation 2.11.
             elif channels in pars.rvs:
                 self.__sigma = lambda m, model: (
-                    model.trq(pars.tms[channels]))**2
+                    model.trq(m, pars.tms[channels]))**2
     
             # Meson decay of the form A -> B + X, equation 2.7 - 2.10.
             elif len(moms) == 2 and moms[0] in pars.tms and moms[1] in pars.tms:
@@ -152,7 +152,8 @@ class Production:
                     pf = utils.trace(ta, tb, tv)
                     if pf: vs.append((tv, pf, BreitWigner(v, 1)))
                 self.__sigma = lambda m, model: (
-                    abs(sum([pf*model.trq(tv)*bw(m) for tv, pf, bw in vs])))**2
+                    abs(sum([pf*model.trq(m, tv)*
+                             bw(m) for tv, pf, bw in vs])))**2
                     
             # Unknown mechanism.
             else: raise ProductionError(
@@ -164,7 +165,7 @@ class Production:
             self.__sigma(0, model.Model("dark_photon"))
                          
         # Set the channels.
-        try: float(frac); self.__frac = lambda m: float(frac)
+        try: float(frac); self.__frac = lambda m, frac = frac: float(frac)
         except: self.__frac = frac
         self.channels = [self]
 
