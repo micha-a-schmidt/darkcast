@@ -508,6 +508,7 @@ def latex(line):
         smb = ["gamma", "nu", "mu", "tau", "pi", "eta", "rho", "omega", "phi",
                "rightarrow"]
         dct = [("_",     r" ")
+        ] + [("L%s" % l, r"$L_{%s}$" % l) for l in ["e", "mu", "tau"]
         ] + [("nu%s" % l, r"nu_{%s}" % l) for l in ["e", "mu", "tau"]
         ] + [(l, r"\%s" % l) for l in smb
         ] + [(l + "0", l + "^{0}") for l in smb

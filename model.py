@@ -25,7 +25,8 @@ class Model:
     model, e.g. 'dark_photon'.
 
     name:   name of the model.
-    xfs:    dictionary of fermion couplings.
+    xfs:    dictionary of fermion couplings. Each coupling is a function 
+            dependent upon mass (GeV).
     q:      quark U(3) charge matrix.
     """
     ###########################################################################
@@ -41,7 +42,8 @@ class Model:
         (2) The 'models' directory of the Darkcast package.
 
         Each model must contain a fermion coupling dictionary named
-        'xfs'.
+        'xfs', where each coupling can either be a constant, or a mass 
+        dependent function.
 
         The list 'states' may be defined, specifying the allowed final
         states for the model, e.g. ['e_e', 'mu_mu', 'invisible',
@@ -74,9 +76,13 @@ class Model:
         # Load the model's fermion couplings.
         self.xfs = {}
         for f in pars.mfs:
-            try: self.xfs[f] = model.xfs[f]
-            except: raise ModelError(
-                "Error loading '%s' coupling from '%s'." % (f, name))
+            try:
+                float(model.xfs[f])
+                self.xfs[f] = lambda m, f = f: float(model.xfs[f])
+            except: 
+                try: self.xfs[f] = model.xfs[f]
+                except: raise ModelError(
+                        "Error loading '%s' coupling from '%s'." % (f, name))
 
         # Load the model's invisible width function.
         try: self.__iwidth = iwidth if iwidth != None else model.iwidth
@@ -89,21 +95,23 @@ class Model:
         # Load the model's defined final states.
         try: self.__states = states if states != None else model.states
         except: self.__states = ["visible", "invisible"]
+        self.width("total", 0)
         try: self.width("total", 0)
         except: raise ModelError(
             "Invalid definition of allowed final states from '%s'." % name)
 
     ###########################################################################
-    def trq(self, t):
+    def trq(self, m, t):
         """
         Return the trace of the quark U(3)-charge matrix for the model
         with the diagonal of a given matrix, e.g. a meson generator T.
         
+        m: mass at which to evaulate the couplings (GeV).
         t: diagonal of the matrix to perform the trace with, must be
            size 3.
         """
-        try:
-            return t[0]*self.xfs["u"] + t[1]*self.xfs["d"] + t[2]*self.xfs["s"]
+        try: return (t[0]*self.xfs["u"](m) + t[1]*self.xfs["d"](m) +
+                     t[2]*self.xfs["s"](m))
         except: raise ModelError(
             "Invalid diagonal provided to the trace.")
 
@@ -141,7 +149,7 @@ class Model:
             # Perturbative decay into a fermion pair, equation 2.13.
             elif len(dtrs) == 2 and dtrs[0] == dtrs[1] and dtrs[0] in pars.mfs:
                 dtr = dtrs[0]
-                cf, mf, xf = pars.cfs[dtr], pars.mfs[dtr], self.xfs[dtr]
+                cf, mf, xf = pars.cfs[dtr], pars.mfs[dtr], self.xfs[dtr](m)
                 if m > 2.0*mf: part = (cf*xf**2.0*m/(12.0*math.pi)*(
                         1.0 + 2.0*mf**2/m**2)*math.sqrt(1.0 - 4.0*mf**2.0/m**2))
                 else: part = 0
@@ -152,7 +160,7 @@ class Model:
                 for mesons, rf in pars.rfs[state].items():
                     sub = 1
                     for meson in mesons:
-                        sub *= pars.rvs[meson]*self.trq(pars.tms[meson])
+                        sub *= pars.rvs[meson]*self.trq(m, pars.tms[meson])
                     sub *= sub if len(mesons) == 1 else 2
                     sub *= rf(m)
                     part += m/(12*math.pi)*sub

@@ -17,9 +17,8 @@
 
 ###############################################################################
 # The fermion couplings must be defined via the 'xfs'
-# dictionary. Currently these couplings must be constants, and are not
-# mass dependent. If needed, this functionality can be added in the
-# future.
+# dictionary. These couplings can be either a constant, or a function
+# which takes a single argument of mass in GeV.
 xfs = {
     "e":       0.0,
     "mu":      0.0,
@@ -27,7 +26,7 @@ xfs = {
     "nue":     0.0,
     "numu":    0.0,
     "nutau":   0.0,
-    "d":       1.0,
+    "d":       lambda m: m**2,
     "u":      -1.0,
     "s":      20.0,
     "c":     -20.0,
