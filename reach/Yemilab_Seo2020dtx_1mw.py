@@ -25,5 +25,5 @@ bibtex = """
 model = darkcast.Model("dark_photon")
 production = darkcast.Production("e_brem")
 decay = ["e_e"]
-bounds = darkcast.Dataset("reach/Yemilab_Seo2020dtx_1mw.lmt")
+bounds = darkcast.Datasets("reach/Yemilab_Seo2020dtx_1mw.lmt")
 efficiency = darkcast.Efficiency(lratio = 20.0/0.5)
