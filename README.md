@@ -151,6 +151,12 @@ source activate darkcastenv
 
 ## History
 
+* **v1.0** - 16/12/2020
+  * First full release of the Darkcast code. The code has been used relatively extensively with a number of external validations.
+  * Mass dependent couplings have been added.
+  * New models, including various lepton number scenarios with loop induced contributions, have been added.
+  * In most cases, reach limits can now be recast.
+  * A number of new limits have been added.
 * **v0.2** - 09/04/2019
   * Second beta release of the Darkcast code. A number of limits have been added, including reach for future experiments.
 * **v0.1** - 31/05/2018
