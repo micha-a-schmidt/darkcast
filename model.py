@@ -139,8 +139,9 @@ class Model:
                 part = self.__iwidth(m, self)
             elif state == "visible":
                 part = self.width(
-                    ["e_e", "mu_mu", "tau_tau", "nue_nue", "numu_numu", 
-                     "nutau_nutau", "c_c", "b_b", "t_t", "hadrons"], m)
+                    ["gamma_gamma_gamma", "e_e", "mu_mu", "tau_tau",
+                     "nue_nue", "numu_numu",  "nutau_nutau",
+                     "c_c", "b_b", "t_t", "hadrons"], m)
             elif state == "hadrons":
                 part = self.width(pars.rfs.keys(), m)
             elif state == "total":
@@ -152,6 +153,17 @@ class Model:
                 cf, mf, xf = pars.cfs[dtr], pars.mfs[dtr], self.xfs[dtr](m)
                 if m > 2.0*mf: part = (cf*xf**2.0*m/(12.0*math.pi)*(
                         1.0 + 2.0*mf**2/m**2)*math.sqrt(1.0 - 4.0*mf**2.0/m**2))
+                else: part = 0
+
+            # Perturbative decay into three photons via an electron loop,
+            # equation 3.5 of Seo:2020dtx.
+            elif len(dtrs) == 3 and dtrs[0] == dtrs[1] == dtrs[2] == "gamma":
+                mf, xf = pars.mfs["e"], self.xfs["e"](m)
+                if m <= 2.0*mf: part = (
+                    (xf**2.0*pars.ge**6.0)/(4.0*math.pi)**4.0/(
+                    2.0**7.0*3.0**6.0*5.0**2.0*math.pi**3.0)*(m**9.0/mf**8.0)*(
+                    17.0/5.0 + (67.0*m**2.0)/(42.0*mf**2.0) +
+                    (128941.0*m**4.0)/(246960.0*mf**4.0)))
                 else: part = 0
 
             # Decay into hadrons, equations 2.17 and 2.18.
