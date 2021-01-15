@@ -1,5 +1,5 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
-# Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
+# Copyright (C) 2021 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 
 # This example demonstrates how both a new model and a new limit can
 # be created. The example model is 'user_model.py' and the example

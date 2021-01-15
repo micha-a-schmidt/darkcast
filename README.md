@@ -55,7 +55,7 @@ When using Darkcast, please cite [*Serendipity in dark photon searches*](https:/
 
 ## Licensing
 
-Darkcast is licensed under the GNU GPL version 2, or later and is copyrighted (C) 2020 by Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
+Darkcast is licensed under the GNU GPL version 2, or later and is copyrighted (C) 2021 by Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version.
 

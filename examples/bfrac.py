@@ -1,5 +1,5 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
-# Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
+# Copyright (C) 2021 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 
 # This example calculates the branching fractions for every model
 # available in darkcast/models. If matplotlib is available these
