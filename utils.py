@@ -490,12 +490,16 @@ def latex(line):
     """
     Return a line with special LaTeX characters formatted,
     e.g. particle names. Alternatively, format the name of a
-    production mechanism.
+    limit with a production mechanism.
 
     line: string (or production mechanism) to format.
     """
     try:
-        prod = line
+        try:
+            if line.name.startswith("AMM"):
+                return "$(g-2)_{%s}$" % latex(line.name[3:].split("_")[0])
+            prod = line.production
+        except: prod = line
         line = prod.name
         if line == "undefined":
             if len(prod.channels) > 4: line = "LHC"

@@ -38,7 +38,7 @@ from . import utils
 ###############################################################################
 # Constants.
 c    = 2.99792458e8     # Speed of light (m/s).
-hbar = 6.58211951e-25   # Reduced Planck's constant (s/GeV).
+hbar = 6.58211951e-25   # Reduced Planck's constant (GeV s).
 ge   = 3.02822e-1       # Electromagnetic coupling (unitless).
 bw   = "run"            # Flag for Breit-Wigner type, 'fix' or 'run'.
 

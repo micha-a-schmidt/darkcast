@@ -69,7 +69,7 @@ for name, model in models.items():
         # plotting package.
         if pyplot:
             for x, y in recast.plots():
-                label = darkcast.utils.latex(limit.production)
+                label = darkcast.utils.latex(limit)
                 if not label in labels: c = next(icolor); labels[label] = c
                 else: c = labels[label]; label = None
                 ax.fill(x, y, label = label, alpha = 0.3, color = c)

@@ -128,6 +128,9 @@ class Production:
             self.name = channels
             moms = channels.split('_')
 
+            # Decoupled production mechanism.
+            if channels == "none": self.__sigma = lambda m, model: 1.0
+            
             # Proton-beam bremsstrahlung, equation 2.4.
             if channels == "p_brem":
                 self.__sigma = lambda m, model: (

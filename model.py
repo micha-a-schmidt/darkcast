@@ -129,6 +129,9 @@ class Model:
         total = 0
         for state in (states,) if isinstance(states, str) else states:
 
+            # Decoupled decay.
+            if state == "none": return 1.0
+
             # Use cached result if valid.
             cache = self.__cache.get(state)
             if cache and cache[0] == m: total += cache[-1]; continue
