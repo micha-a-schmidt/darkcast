@@ -1,5 +1,5 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
-# Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
+# Copyright (C) 2021 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 #
 # This model is based on the results of "Solar neutrino probes of the
 # muon anomalous magnetic moment in the gauged U(1)Lmu-Ltau" by

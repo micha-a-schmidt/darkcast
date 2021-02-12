@@ -1,5 +1,5 @@
 # DARKCAST is licensed under the GNU GPL version 2 or later.
-# Copyright (C) 2020 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
+# Copyright (C) 2021 Philip Ilten, Yotam Soreq, Mike Williams, and Wei Xue.
 
 # This is an example user limit. To include new limits within
 # Darkcast, please contact the authors or create a merge request at
