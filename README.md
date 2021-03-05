@@ -153,6 +153,7 @@ source activate darkcastenv
 
 * **v1.1** - 05/03/2021
   * Added limits and preferred bands from electron and muon anomalous magnetic moment measurements.
+  * Allow for decoupled decay and production.
   * Included new BaBar dimuon measurement.
 * **v1.0** - 16/12/2020
   * First full release of the Darkcast code. The code has been used relatively extensively with a number of external validations.
