@@ -20,11 +20,18 @@ def epsilon(da, a0, ml, m):
 ###############################################################################
 def limit(label, lep, da, m0 = 1e-3, m1 = 1e2, steps = 100):
     """
-    Calculate the limits on epsilon
-    da: difference in anomalous magnetic moment, a(experiment) - a(SM).
-    a0: fine structure constant.
-    ml: mass of the lepton.
-    m:  mass of the dark photon.
+    Write out the limits on epsilon for a given file name, lepton flavor,
+    and difference in anomalous magnetic moment.
+
+    label: name of the limit file to write.
+    lep:   label of the lepton.
+    da:    difference in anomalous magnetic moment, a(experiment) - a(SM).
+    
+    Optional parameters control how many points are calculated on a log scale.
+    
+    m0:    starting mass of the dark photon.
+    m1:    ending mass of the dark photon.
+    steps: number of steps.
     """
     from darkcast import pars
     from math import log10
@@ -53,4 +60,3 @@ if __name__ == "__main__":
     # Muon AMM preferred band (2 sigma, equation 1 of Bodas:2021fsy).
     limit("AMMmu_Bodas2021fsy_2l", "mu", (2.79 - 2*0.76)*1e-9)
     limit("AMMmu_Bodas2021fsy_2u", "mu", (2.79 + 2*0.76)*1e-9)
-
