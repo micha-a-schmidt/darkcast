@@ -25,7 +25,7 @@ bibtex = """
  archivePrefix  = "arXiv",
  primaryClass   = "hep-ex",
  SLACcitation   = "%%CITATION = ARXIV:1404.5502;%%"
-}}
+}
 """
 model = darkcast.Model("dark_photon")
 production = darkcast.Production("e_brem")

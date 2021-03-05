@@ -24,6 +24,7 @@ class Limit:
     Represents all the needed information to define a limit. This
     class contains the following members.
     
+    name:       name of the limit.
     notes:      text providing any relevant notes for the limit. This is
                 optional, and if not defined a default will be assigned.
     bibtex:     the optional BibTex entry from inSPIRE for this limit.

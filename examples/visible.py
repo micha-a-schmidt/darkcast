@@ -50,7 +50,7 @@ for name, model in models.items():
     # If possible, initialize the plot.
     if pyplot:
         fig, ax = pyplot.subplots()
-        icolor, labels = itertools.cycle(colors), {}
+        icolor, lbls = itertools.cycle(colors), {}
         
     # Loop over the limits.
     for label, limit in limits.items():
@@ -69,10 +69,11 @@ for name, model in models.items():
         # plotting package.
         if pyplot:
             for x, y in recast.plots():
-                label = darkcast.utils.latex(limit.production)
-                if not label in labels: c = next(icolor); labels[label] = c
-                else: c = labels[label]; label = None
-                ax.fill(x, y, label = label, alpha = 0.3, color = c)
+                lbl = darkcast.utils.latex(limit)
+                if not lbl in lbls: c = next(icolor); lbls[lbl] = c
+                else: c = lbls[lbl]; lbl = None
+                f = not (label.endswith("_2l") or label.endswith("_2u"))
+                ax.fill(x, y, label = lbl, alpha = 0.3, fill = f, color = c)
 
     # Save the plot.
     if pyplot:
