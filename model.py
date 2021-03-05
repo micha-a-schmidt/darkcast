@@ -130,7 +130,7 @@ class Model:
         for state in (states,) if isinstance(states, str) else states:
 
             # Decoupled decay.
-            if state == "none": return 1.0
+            if state == "none": return None
 
             # Use cached result if valid.
             cache = self.__cache.get(state)
@@ -219,6 +219,7 @@ class Model:
         """
         num = self.width(states, m)
         if num == 0: return 0.0
+        elif num == None: return 1.0
         den = self.width("total", m)
         if den == 0: return 0.0
         return num/den
