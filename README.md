@@ -151,6 +151,9 @@ source activate darkcastenv
 
 ## History
 
+* **v1.2** - current
+  * Added updated SHiP projections provided by Atakan Tugberk Akmete and
+    Anne-Marie Magnan.
 * **v1.1** - 05/03/2021
   * Added limits and preferred bands from electron and muon anomalous magnetic moment measurements.
   * Allow for decoupled decay and production.

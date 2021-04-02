@@ -33,5 +33,5 @@ model = darkcast.Model("dark_photon")
 production = darkcast.Production({"u_u": 0.18, "d_d": 0.81, "s_s": 0.01})
 production.name = "QCD"
 decay = "e_e"
-bounds = darkcast.Datasets("reach/SHiP_Alekhin2015byh_qcd.lmt")
+bounds = darkcast.Datasets("reach/SHiP_Alekhin2015byh_dy.lmt")
 efficiency = darkcast.Efficiency(lratio = 48.0/64.0)
