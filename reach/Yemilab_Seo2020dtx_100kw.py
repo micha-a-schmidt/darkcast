@@ -13,13 +13,13 @@ shield length is 20/0.5.
 """
 bibtex = """
 @article{Seo:2020dtx,
- author = "Seo, Seon-Hee and Kim, Yeongduk",
- title = "{Dark Photon Search at Yemilab, Korea}",
- eprint = "2009.11155",
+ author        = "Seo, Seon-Hee and Kim, Yeongduk",
+ title         = "{Dark Photon Search at Yemilab, Korea}",
+ eprint        = "2009.11155",
  archivePrefix = "arXiv",
- primaryClass = "hep-ph",
- month = "9",
- year = "2020"
+ primaryClass  = "hep-ph",
+ month         = "9",
+ year          = "2020"
 }
 """
 model = darkcast.Model("dark_photon")
