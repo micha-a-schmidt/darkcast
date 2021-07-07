@@ -8,8 +8,9 @@
 # Update the system path to find the Darkcast module.
 # This assumes that 'examples' is in 'darkcast/examples.'
 import sys, os, inspect, itertools, glob
-sys.path.insert(1, os.path.join(os.path.dirname(os.path.realpath(
-                inspect.getfile(inspect.currentframe()))), "../../"))
+examples = os.path.dirname(os.path.realpath(
+    inspect.getfile(inspect.currentframe())))
+sys.path.insert(1, os.path.join(examples, "../../"))
 
 # Import the Darkcast module.
 import darkcast
@@ -21,7 +22,7 @@ models = darkcast.Models()
 model = darkcast.Model("dark_photon")
 
 # Load all the available limits in darkcast/limits and DARKCAST_LIMIT_PATH.
-limits = darkcast.Limits("../reach")
+limits = darkcast.Limits(os.path.join(examples, "../reach"))
 
 # Try to load matplotlib.
 try: import matplotlib.pyplot as pyplot

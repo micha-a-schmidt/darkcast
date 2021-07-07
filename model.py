@@ -135,7 +135,7 @@ class Model:
             # Use cached result if valid.
             cache = self.__cache.get(state)
             if cache and cache[0] == m: total += cache[-1]; continue
-    
+
             # Invisible, visible, dark sector, neutrino, lepton,
             # quark, hadron, and total widths.
             dtrs = state.split("_")
