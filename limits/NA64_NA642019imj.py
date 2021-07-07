@@ -28,7 +28,7 @@ bibtex = """
  SLACcitation   = "%%CITATION = ARXIV:1906.00176;%%"
 }
 """
-model = darkcast.Model("dark_photon", iwidth = lambda m, model:
+model = darkcast.Model("dark_photon", dwidth = lambda m, model:
                        99.0*model.width("visible", m))
 production = darkcast.Production("e_brem")
 decay = "invisible"

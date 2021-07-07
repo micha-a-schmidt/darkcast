@@ -35,18 +35,18 @@ xfs = {
     }
 
 ###############################################################################
-# An invisible width can be optionally defined as 'iwidth'. This must
+# A dark sector width can be optionally defined as 'dwidth'. This must
 # be a function that takes as an argument a mass (in GeV) and the
-# model itself. This means that the invisible width can be defined as
-# a function of the visible width, which is done here. See
-# BaBar_Lees2017lec as a limit where this is done.
-def iwidth(m, model): return model.width("visible", m)
+# model itself. This means that the dark sector width can be defined
+# as a function of another width, e.g. the viisble width, which is
+# done here. See BaBar_Lees2017lec as a limit where this is done.
+def dwidth(m, model): return model.width("visible", m)
 
-# The invisible width can also be set as just a number:
+# The dark sector width can also be set as just a number:
 #
-# iwidth = 0
+# dwidth = 0
 # 
-# By default, the invisible width is set as 0.
+# By default, the dark sector width is set as 0.
 
 ###############################################################################
 # The final states to consider when calculating the total width, can

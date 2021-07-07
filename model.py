@@ -30,7 +30,7 @@ class Model:
     q:      quark U(3) charge matrix.
     """
     ###########################################################################
-    def __init__(self, name, states = None, iwidth = None, path = None):
+    def __init__(self, name, states = None, dwidth = None, path = None):
         """
         Load a model, given its name.
 
@@ -51,18 +51,18 @@ class Model:
         total width. If not defined, all visible and invisible final
         states are used when calculating the total width.
 
-        Optionally, an 'iwidth' function provides the invisible width
+        Optionally, a 'dwidth' function provides the dark sector width
         for the model, given a mass and model and taking the form
-        'iwidth(mass (GeV), model)'. Consequently, the invisible width
-        can be defined as a function of the visible width. If no
-        'iwidth' is defined, the invisible width is taken as zero. The
-        invisible width is assumed to be dependent on the square of
-        the global coupling. See the example model for further
-        details.
+        'dwidth(mass (GeV), model)'. Consequently, the dark sector
+        width can be defined as a function of another width, e.g. the
+        visible width. If no 'dwidth' is defined, the dark sector
+        width is taken as zero. The dark sector width is assumed to be
+        dependent on the square of the global coupling. See the
+        example model for further details.
         
         name:   name of the model.
         states: optionally, specify the allowed final states of the model.
-        iwidth: optionally, specify the invisible width as a function of 
+        dwidth: optionally, specify the dark sector width as a function of 
                 a given mass and this model.
         path:   optionally, specify the path to load the module from.
         """
@@ -84,10 +84,10 @@ class Model:
                 except: raise ModelError(
                         "Error loading '%s' coupling from '%s'." % (f, name))
 
-        # Load the model's invisible width function.
-        try: self.__iwidth = iwidth if iwidth != None else model.iwidth
-        except: self.__iwidth = lambda m, model: 0.0
-        self.__iwidth(0, self)
+        # Load the model's dark sector width function.
+        try: self.__dwidth = dwidth if dwidth != None else model.dwidth
+        except: self.__dwidth = lambda m, model: 0.0
+        self.__dwidth(0, self)
 
         # Create the quark U(3) charge matrix.
         self.q = [self.xfs["u"], self.xfs["d"], self.xfs["s"]]
@@ -136,15 +136,22 @@ class Model:
             cache = self.__cache.get(state)
             if cache and cache[0] == m: total += cache[-1]; continue
     
-            # Invisible, visible, hadronic, and total widths.
+            # Invisible, visible, dark sector, neutrino, lepton,
+            # quark, hadron, and total widths.
             dtrs = state.split("_")
             if state == "invisible":
-                part = self.__iwidth(m, self)
+                part = self.width(["dark", "neutrinos"], m)
             elif state == "visible":
                 part = self.width(
-                    ["gamma_gamma_gamma", "e_e", "mu_mu", "tau_tau",
-                     "nue_nue", "numu_numu",  "nutau_nutau",
-                     "c_c", "b_b", "t_t", "hadrons"], m)
+                    ["gamma_gamma_gamma", "leptons", "quarks", "hadrons"], m)
+            elif state == "dark":
+                part = self.__dwidth(m, self)
+            elif state == "neutrinos":
+                part = self.width(["nue_nue", "numu_numu",  "nutau_nutau"], m)
+            elif state == "leptons":
+                part = self.width(["e_e", "mu_mu",  "tau_tau"], m)
+            elif state == "quarks":
+                part = self.width(["c_c", "b_b",  "t_t"], m)
             elif state == "hadrons":
                 part = self.width(pars.rfs.keys(), m)
             elif state == "total":
@@ -231,7 +238,7 @@ class Models(collections.OrderedDict):
     acts as an ordered dictionary for the individual models.
     """
     ###########################################################################
-    def __init__(self, paths = None, states = None, iwidth = None):
+    def __init__(self, paths = None, states = None, dwidth = None):
         """
         Load all available models along the specified paths.
 
@@ -239,7 +246,7 @@ class Models(collections.OrderedDict):
                 search the paths specified by DARKCAST_MODEL_PATH and
                 the local Darkcast model directory.
         states: optionally, specify the allowed final states of the models.
-        iwidth: optionally, specify the invisible width as a function of 
+        dwidth: optionally, specify the dark sector width as a function of 
                 a given mass and model.
         """
         super(Models, self).__init__()
@@ -258,5 +265,5 @@ class Models(collections.OrderedDict):
             for model in models:
                 if not model.endswith(".py"): continue
                 try: self[model[0:-3]] = Model(
-                        model[0:-3], states, iwidth, path)
+                        model[0:-3], states, dwidth, path)
                 except: pass

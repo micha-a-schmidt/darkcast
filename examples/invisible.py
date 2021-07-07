@@ -16,13 +16,13 @@ sys.path.insert(1, os.path.join(os.path.dirname(os.path.realpath(
 import darkcast
 
 # Load all the available models in darkcast/models and
-# DARKCAST_MODEL_PATH. Note that these models need to be given an
-# invisible width, which here is set to be the same as for the defined
-# invisible limits: 99% of the branching fraction. The 'iwidth' used
-# to define the invisible width can be a function, dependent upon a
+# DARKCAST_MODEL_PATH. Note that these models need to be given a dark
+# sector width, which here is set to be the same as for the defined
+# invisible limits: 99% of the branching fraction. The 'dwidth' used
+# to define the dark sector width can be a function, dependent upon a
 # given mass and a model, or a number e.g. 0.
 models = darkcast.Models(
-    iwidth = lambda m, model: 99.0*model.width("visible", m))
+    dwidth = lambda m, model: 99.0*model.width("visible", m))
 
 # Load all the available limits in darkcast/limits and DARKCAST_LIMIT_PATH.
 limits = darkcast.Limits()
@@ -60,7 +60,7 @@ for name, model in models.items():
 
     # Loop over the limits.
     for label, limit in limits.items():
-        if limit.model.width('invisible', 1) == 0: continue
+        if limit.model.width("invisible", 1) == 0: continue
         else: print(label)
         
         # Recast the limit, this returns an object of type 'Datasets'.
