@@ -1,3 +1,7 @@
+# DARKCAST HAS MIGRATED TO [darkcast/releases](https://gitlab.com/darkcast/releases)!
+
+This repository is being kept for archival purposes, but will no longer be updated. Please use the new repository [darkcast/releases](https://gitlab.com/darkcast/releases) for a more up-to-date versions of Darkcast.
+
 # DARKCAST
 
 Darkcast is the companion software package to the paper [*Serendipity in dark photon searches*](https://arxiv.org/abs/1801.04847) and is a framework for recasting constraints from dark photon searches into other models. The Darkcast package is written as a module in Python and has no external dependencies, sans Python itself. To begin recasting, download the source and try running some of the examples:
