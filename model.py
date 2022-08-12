@@ -30,16 +30,9 @@ class Model:
     q:      quark U(3) charge matrix.
     """
     ###########################################################################
-    def __init__(self, name, states = None, iwidth = None, path = None):
+    def __init__(self, name, xfs, states = None, iwidth = None):
         """
-        Load a model, given its name.
-
-        The model must exist in the form '<name>.py' and is searched
-        for along these paths in the following order:
-        (0) The current directory within the Python interpreter.
-        (1) The paths defined by the environment variable 
-            'DARKCAST_MODEL_PATH'.
-        (2) The 'models' directory of the Darkcast package.
+        Load a model via its xfs dictionary
 
         Each model must contain a fermion coupling dictionary named
         'xfs', where each coupling can either be a constant, or a mass 
@@ -66,26 +59,27 @@ class Model:
                 a given mass and this model.
         path:   optionally, specify the path to load the module from.
         """
+#        print(xfs)
         # Import the model.
         self.name = name
         self.__cache = {}
-        if path: sys.path.insert(1,path)
-        model = __import__(name)
-        if path: del sys.path[1]
+        self.xfs={}
+        # if path: sys.path.insert(1,path)
+        # model = __import__(name)
+        # if path: del sys.path[1]
 
         # Load the model's fermion couplings.
-        self.xfs = {}
         for f in pars.mfs:
             try:
-                float(model.xfs[f])
-                self.xfs[f] = lambda m, f = f: float(model.xfs[f])
+                float(xfs[f])
+                self.xfs[f] = lambda m, f = f: float(xfs[f])
             except: 
-                try: self.xfs[f] = model.xfs[f]
+                try: self.xfs[f] = xfs[f]
                 except: raise ModelError(
                         "Error loading '%s' coupling from '%s'." % (f, name))
 
         # Load the model's invisible width function.
-        try: self.__iwidth = iwidth if iwidth != None else model.iwidth
+        try: self.__iwidth = iwidth if iwidth != None else lambda m, model: 0.0
         except: self.__iwidth = lambda m, model: 0.0
         self.__iwidth(0, self)
 
@@ -93,12 +87,84 @@ class Model:
         self.q = [self.xfs["u"], self.xfs["d"], self.xfs["s"]]
 
         # Load the model's defined final states.
-        try: self.__states = states if states != None else model.states
+        try: self.__states = states if states != None else ["visible", "invisible"]
         except: self.__states = ["visible", "invisible"]
         self.width("total", 0)
         try: self.width("total", 0)
         except: raise ModelError(
             "Invalid definition of allowed final states from '%s'." % name)
+
+
+
+    # def __init__(self, name, states = None, iwidth = None, path = None):
+    #     """
+    #     Load a model, given its name.
+
+    #     The model must exist in the form '<name>.py' and is searched
+    #     for along these paths in the following order:
+    #     (0) The current directory within the Python interpreter.
+    #     (1) The paths defined by the environment variable 
+    #         'DARKCAST_MODEL_PATH'.
+    #     (2) The 'models' directory of the Darkcast package.
+
+    #     Each model must contain a fermion coupling dictionary named
+    #     'xfs', where each coupling can either be a constant, or a mass 
+    #     dependent function.
+
+    #     The list 'states' may be defined, specifying the allowed final
+    #     states for the model, e.g. ['e_e', 'mu_mu', 'invisible',
+    #     ...]. Only these final states are used when calculating the
+    #     total width. If not defined, all visible and invisible final
+    #     states are used when calculating the total width.
+
+    #     Optionally, an 'iwidth' function provides the invisible width
+    #     for the model, given a mass and model and taking the form
+    #     'iwidth(mass (GeV), model)'. Consequently, the invisible width
+    #     can be defined as a function of the visible width. If no
+    #     'iwidth' is defined, the invisible width is taken as zero. The
+    #     invisible width is assumed to be dependent on the square of
+    #     the global coupling. See the example model for further
+    #     details.
+        
+    #     name:   name of the model.
+    #     states: optionally, specify the allowed final states of the model.
+    #     iwidth: optionally, specify the invisible width as a function of 
+    #             a given mass and this model.
+    #     path:   optionally, specify the path to load the module from.
+    #     """
+    #     # Import the model.
+    #     self.name = name
+    #     self.__cache = {}
+    #     if path: sys.path.insert(1,path)
+    #     model = __import__(name)
+    #     if path: del sys.path[1]
+
+    #     # Load the model's fermion couplings.
+    #     self.xfs = {}
+    #     for f in pars.mfs:
+    #         try:
+    #             float(model.xfs[f])
+    #             self.xfs[f] = lambda m, f = f: float(model.xfs[f])
+    #         except: 
+    #             try: self.xfs[f] = model.xfs[f]
+    #             except: raise ModelError(
+    #                     "Error loading '%s' coupling from '%s'." % (f, name))
+
+    #     # Load the model's invisible width function.
+    #     try: self.__iwidth = iwidth if iwidth != None else model.iwidth
+    #     except: self.__iwidth = lambda m, model: 0.0
+    #     self.__iwidth(0, self)
+
+    #     # Create the quark U(3) charge matrix.
+    #     self.q = [self.xfs["u"], self.xfs["d"], self.xfs["s"]]
+
+    #     # Load the model's defined final states.
+    #     try: self.__states = states if states != None else model.states
+    #     except: self.__states = ["visible", "invisible"]
+    #     self.width("total", 0)
+    #     try: self.width("total", 0)
+    #     except: raise ModelError(
+    #         "Invalid definition of allowed final states from '%s'." % name)
 
     ###########################################################################
     def trq(self, m, t):
